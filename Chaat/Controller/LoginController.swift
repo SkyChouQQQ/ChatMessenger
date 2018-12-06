@@ -92,13 +92,12 @@ class LoginController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(r: 61, g: 91, b: 151)
+        
         view.addSubview(inputProfileImageView)
         view.addSubview(loginRegisterSegmentedControl)
         view.addSubview(inputContainerView)
         view.addSubview(loginRegisterButton)
-        view.addSubview(emailInputTextField)
-        view.addSubview(emailSeparatorView)
-        view.addSubview(passWordInputTextField)
+
         
         setUpInputContainerView()
         setUpLoginRegisterButtonView()
@@ -135,6 +134,9 @@ class LoginController: UIViewController {
         
         inputContainerView.addSubview(nameInputTextField)
         inputContainerView.addSubview(nameSeparatorView)
+        inputContainerView.addSubview(emailInputTextField)
+        inputContainerView.addSubview(emailSeparatorView)
+        inputContainerView.addSubview(passWordInputTextField)
         
         nameInputTextField.topAnchor.constraint(equalTo: inputContainerView.topAnchor).isActive = true
         nameInputTextField.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor, constant: 12).isActive = true

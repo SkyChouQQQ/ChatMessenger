@@ -27,10 +27,13 @@ class MessageController: UITableViewController {
             perform(#selector(handleLogOut), with: nil, afterDelay: 0)
         } else {
             let uid = Auth.auth().currentUser?.uid
-            Database.database().reference().child("users").child(uid!).observe(.value) { (dataSnapShot) in
-                
+            Database.database().reference().child("users").child(uid!).observe(.value){ (dataSnapShot) in
+                print(uid!)
                 if let dictionary = dataSnapShot.value as? [String:Any] {
-                    self.navigationItem.title = dictionary["name"] as? String
+                    DispatchQueue.main.async {
+                        
+                        self.navigationItem.title = dictionary["name"] as? String
+                    }
                 }
                 print(dataSnapShot)
             }
@@ -47,11 +50,14 @@ class MessageController: UITableViewController {
         let newMessageIconImage = UIImage(named: "new_message_icon")
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "LogOut", style: .plain, target: self, action: #selector(handleLogOut))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: newMessageIconImage, style: .plain, target: self, action: #selector(handleNewMessage))
-        //user not login
-        checkIfUserIsLoggedIn()
-    
+
 
 }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkIfUserIsLoggedIn()
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
