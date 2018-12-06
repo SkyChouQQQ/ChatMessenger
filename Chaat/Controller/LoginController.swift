@@ -11,7 +11,7 @@ import Firebase
 
 class LoginController: UIViewController {
     
-    let inputImageView:UIImageView = {
+    let inputProfileImageView:UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 5
@@ -92,7 +92,7 @@ class LoginController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(r: 61, g: 91, b: 151)
-        view.addSubview(inputImageView)
+        view.addSubview(inputProfileImageView)
         view.addSubview(loginRegisterSegmentedControl)
         view.addSubview(inputContainerView)
         view.addSubview(loginRegisterButton)
@@ -114,10 +114,10 @@ class LoginController: UIViewController {
     
     
     private func setUpInputImageView(){
-        inputImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputImageView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -12).isActive = true
-        inputImageView.widthAnchor.constraint(equalToConstant: 180).isActive = true
-        inputImageView.heightAnchor.constraint(equalToConstant: 180).isActive = true
+        inputProfileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        inputProfileImageView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -12).isActive = true
+        inputProfileImageView.widthAnchor.constraint(equalToConstant: 180).isActive = true
+        inputProfileImageView.heightAnchor.constraint(equalToConstant: 180).isActive = true
     }
     private func setUpLoginRegisterSegmentedControlView() {
         loginRegisterSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

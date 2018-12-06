@@ -1,0 +1,6 @@
+framework module Pods_Chaat {
+  umbrella header "Pods-Chaat-umbrella.h"
+
+  export *
+  module * { export * }
+}
