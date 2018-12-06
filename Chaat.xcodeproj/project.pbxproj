@@ -7,15 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24057D62A4681B5D1E6D5416 /* Pods_Chaat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D9048B0FEC159E1236941F /* Pods_Chaat.framework */; };
 		844851CC21B81DD3008DD6DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844851CB21B81DD3008DD6DB /* AppDelegate.swift */; };
 		844851CE21B81DD3008DD6DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844851CD21B81DD3008DD6DB /* ViewController.swift */; };
 		844851D121B81DD3008DD6DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844851CF21B81DD3008DD6DB /* Main.storyboard */; };
 		844851D321B81DD8008DD6DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 844851D221B81DD8008DD6DB /* Assets.xcassets */; };
 		844851D621B81DD8008DD6DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844851D421B81DD8008DD6DB /* LaunchScreen.storyboard */; };
 		844851DF21B825FB008DD6DB /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844851DE21B825FB008DD6DB /* LoginController.swift */; };
+		844C0ED721B8EC1F00810664 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 844C0ED621B8EC1F00810664 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2ECABFDBA9DAFCB0F117FF38 /* Pods-Chaat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chaat.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chaat/Pods-Chaat.release.xcconfig"; sourceTree = "<group>"; };
+		3A49B306F1CC177800FE2D22 /* Pods-Chaat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chaat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chaat/Pods-Chaat.debug.xcconfig"; sourceTree = "<group>"; };
 		844851C821B81DD3008DD6DB /* Chaat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chaat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		844851CB21B81DD3008DD6DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		844851CD21B81DD3008DD6DB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +28,8 @@
 		844851D521B81DD8008DD6DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		844851D721B81DD8008DD6DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		844851DE21B825FB008DD6DB /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		844C0ED621B8EC1F00810664 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F3D9048B0FEC159E1236941F /* Pods_Chaat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chaat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +37,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24057D62A4681B5D1E6D5416 /* Pods_Chaat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F56775053845997C812F63B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3A49B306F1CC177800FE2D22 /* Pods-Chaat.debug.xcconfig */,
+				2ECABFDBA9DAFCB0F117FF38 /* Pods-Chaat.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		844851BF21B81DD3008DD6DB = {
 			isa = PBXGroup;
 			children = (
 				844851CA21B81DD3008DD6DB /* Chaat */,
 				844851C921B81DD3008DD6DB /* Products */,
+				3F56775053845997C812F63B /* Pods */,
+				F6745D06D9B321F6A6D7A9AC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +76,7 @@
 			children = (
 				844851DD21B825D2008DD6DB /* Controller */,
 				844851CB21B81DD3008DD6DB /* AppDelegate.swift */,
+				844C0ED621B8EC1F00810664 /* GoogleService-Info.plist */,
 				844851CF21B81DD3008DD6DB /* Main.storyboard */,
 				844851D221B81DD8008DD6DB /* Assets.xcassets */,
 				844851D421B81DD8008DD6DB /* LaunchScreen.storyboard */,
@@ -75,6 +94,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		F6745D06D9B321F6A6D7A9AC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F3D9048B0FEC159E1236941F /* Pods_Chaat.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -82,9 +109,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 844851DA21B81DD8008DD6DB /* Build configuration list for PBXNativeTarget "Chaat" */;
 			buildPhases = (
+				A8865DA6356EA6665EBD3B25 /* [CP] Check Pods Manifest.lock */,
 				844851C421B81DD3008DD6DB /* Sources */,
 				844851C521B81DD3008DD6DB /* Frameworks */,
 				844851C621B81DD3008DD6DB /* Resources */,
+				3D32F3E9DE85BECBB6EB512B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -135,11 +164,57 @@
 			files = (
 				844851D621B81DD8008DD6DB /* LaunchScreen.storyboard in Resources */,
 				844851D321B81DD8008DD6DB /* Assets.xcassets in Resources */,
+				844C0ED721B8EC1F00810664 /* GoogleService-Info.plist in Resources */,
 				844851D121B81DD3008DD6DB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3D32F3E9DE85BECBB6EB512B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Chaat/Pods-Chaat-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chaat/Pods-Chaat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A8865DA6356EA6665EBD3B25 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Chaat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		844851C421B81DD3008DD6DB /* Sources */ = {
@@ -292,6 +367,7 @@
 		};
 		844851DB21B81DD8008DD6DB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A49B306F1CC177800FE2D22 /* Pods-Chaat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -310,6 +386,7 @@
 		};
 		844851DC21B81DD8008DD6DB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2ECABFDBA9DAFCB0F117FF38 /* Pods-Chaat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
