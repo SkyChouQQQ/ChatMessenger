@@ -22,6 +22,7 @@ class MessageController: UITableViewController {
         let loginController = LoginController()
         present(loginController, animated: true, completion: nil)
     }
+    
     func checkIfUserIsLoggedIn() {
         if Auth.auth().currentUser?.uid == nil {
             perform(#selector(handleLogOut), with: nil, afterDelay: 0)

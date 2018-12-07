@@ -14,6 +14,7 @@
 		844851D321B81DD8008DD6DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 844851D221B81DD8008DD6DB /* Assets.xcassets */; };
 		844851D621B81DD8008DD6DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844851D421B81DD8008DD6DB /* LaunchScreen.storyboard */; };
 		844851DF21B825FB008DD6DB /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844851DE21B825FB008DD6DB /* LoginController.swift */; };
+		8449B93121BA5A8200C0B6A8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8449B93021BA5A8200C0B6A8 /* Extensions.swift */; };
 		844C0ED721B8EC1F00810664 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 844C0ED621B8EC1F00810664 /* GoogleService-Info.plist */; };
 		844C0ED921B954AD00810664 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C0ED821B954AD00810664 /* NewMessageController.swift */; };
 		844C0EDC21B9605300810664 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C0EDB21B9605300810664 /* UserCell.swift */; };
@@ -32,6 +33,7 @@
 		844851D521B81DD8008DD6DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		844851D721B81DD8008DD6DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		844851DE21B825FB008DD6DB /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		8449B93021BA5A8200C0B6A8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		844C0ED621B8EC1F00810664 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		844C0ED821B954AD00810664 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
 		844C0EDB21B9605300810664 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 		844851CA21B81DD3008DD6DB /* Chaat */ = {
 			isa = PBXGroup;
 			children = (
+				8449B92F21BA5A3400C0B6A8 /* Helpers */,
 				844C0EE021B9727900810664 /* Supporting Files */,
 				844C0EDD21B9722100810664 /* Model */,
 				844C0EDA21B9602300810664 /* Cells */,
@@ -101,6 +104,14 @@
 				844C0EE121B99FFE00810664 /* LoginController+handlers.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		8449B92F21BA5A3400C0B6A8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8449B93021BA5A8200C0B6A8 /* Extensions.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		844C0EDA21B9602300810664 /* Cells */ = {
@@ -260,6 +271,7 @@
 				844C0ED921B954AD00810664 /* NewMessageController.swift in Sources */,
 				844851CE21B81DD3008DD6DB /* MessageController.swift in Sources */,
 				844C0EDF21B9723200810664 /* User.swift in Sources */,
+				8449B93121BA5A8200C0B6A8 /* Extensions.swift in Sources */,
 				844C0EDC21B9605300810664 /* UserCell.swift in Sources */,
 				844C0EE221B99FFE00810664 /* LoginController+handlers.swift in Sources */,
 				844851DF21B825FB008DD6DB /* LoginController.swift in Sources */,
