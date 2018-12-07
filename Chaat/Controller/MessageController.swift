@@ -28,14 +28,12 @@ class MessageController: UITableViewController {
         } else {
             let uid = Auth.auth().currentUser?.uid
             Database.database().reference().child("users").child(uid!).observe(.value){ (dataSnapShot) in
-                print(uid!)
                 if let dictionary = dataSnapShot.value as? [String:Any] {
                     DispatchQueue.main.async {
                         
                         self.navigationItem.title = dictionary["name"] as? String
                     }
                 }
-                print(dataSnapShot)
             }
         }
     }
@@ -47,7 +45,7 @@ class MessageController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let newMessageIconImage = UIImage(named: "new_message_icon")
+        let newMessageIconImage = #imageLiteral(resourceName: "new_message_icon")
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "LogOut", style: .plain, target: self, action: #selector(handleLogOut))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: newMessageIconImage, style: .plain, target: self, action: #selector(handleNewMessage))
 

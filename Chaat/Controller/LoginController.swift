@@ -11,13 +11,15 @@ import Firebase
 
 class LoginController: UIViewController {
     
-    let inputProfileImageView:UIImageView = {
+    lazy var inputProfileImageView:UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 5
         imageView.layer.masksToBounds = true
-        imageView.backgroundColor = .white
+        imageView.image = UIImage(named: "gameofthrones_splash")
         imageView.contentMode = .scaleToFill
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSeletedProfileImageViewTapped)))
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
@@ -197,6 +199,8 @@ class LoginController: UIViewController {
         passwordTextFieldHeightAnchor = passWordInputTextField.heightAnchor.constraint(equalTo: inputContainerView.heightAnchor, multiplier: (loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/3))
         passwordTextFieldHeightAnchor?.isActive = true
     }
+    
+
     @objc func handleLoginRegister(){
         if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
             handleLogin()
@@ -205,54 +209,7 @@ class LoginController: UIViewController {
         }
     }
     
-    func handleLogin(){
-        guard let email = emailInputTextField.text, let password = passWordInputTextField.text, let name = nameInputTextField.text else {
-            print("Form of Input is not correct")
-            return
-        }
-        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
-            if error != nil {
-                print("user sign in fails")
-                return
-            }
-            print("user successfully sign in")
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
-    
-     func handleRegister(){
-        
-        guard let email = emailInputTextField.text, let password = passWordInputTextField.text, let name = nameInputTextField.text else {
-            print("Form of Input is not correct")
-            return
-        }
-    
-        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-            if error != nil {
-                print("\(error)")
-                return
-            }
-            // Successfully register to firebase
-            guard let uid = result?.user.uid else{
-                print(" user's uid unwrapped fails")
-                return
-            }
-            let reference = Database.database().reference(fromURL: "https://chaat-f074a.firebaseio.com")
-            let childReference = reference.child("users").child(uid)
-            let value = ["name":name,"email":email]
-            childReference.updateChildValues(value, withCompletionBlock: { (err, reference) in
-                if err != nil {
-                    print("\(err)")
-                    return
-                }
-                print("Save User Successfully into firebase DB")
-                self.dismiss(animated: true, completion: nil)
-            })
-            
-        }
-        
-        
-    }
+
     
 }
     

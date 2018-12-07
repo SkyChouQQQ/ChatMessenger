@@ -18,6 +18,7 @@
 		844C0ED921B954AD00810664 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C0ED821B954AD00810664 /* NewMessageController.swift */; };
 		844C0EDC21B9605300810664 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C0EDB21B9605300810664 /* UserCell.swift */; };
 		844C0EDF21B9723200810664 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C0EDE21B9723200810664 /* User.swift */; };
+		844C0EE221B99FFE00810664 /* LoginController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C0EE121B99FFE00810664 /* LoginController+handlers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		844C0ED821B954AD00810664 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
 		844C0EDB21B9605300810664 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		844C0EDE21B9723200810664 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		844C0EE121B99FFE00810664 /* LoginController+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+handlers.swift"; sourceTree = "<group>"; };
 		F3D9048B0FEC159E1236941F /* Pods_Chaat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chaat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -96,6 +98,7 @@
 				844851CD21B81DD3008DD6DB /* MessageController.swift */,
 				844851DE21B825FB008DD6DB /* LoginController.swift */,
 				844C0ED821B954AD00810664 /* NewMessageController.swift */,
+				844C0EE121B99FFE00810664 /* LoginController+handlers.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				844851CE21B81DD3008DD6DB /* MessageController.swift in Sources */,
 				844C0EDF21B9723200810664 /* User.swift in Sources */,
 				844C0EDC21B9605300810664 /* UserCell.swift in Sources */,
+				844C0EE221B99FFE00810664 /* LoginController+handlers.swift in Sources */,
 				844851DF21B825FB008DD6DB /* LoginController.swift in Sources */,
 				844851CC21B81DD3008DD6DB /* AppDelegate.swift in Sources */,
 			);
