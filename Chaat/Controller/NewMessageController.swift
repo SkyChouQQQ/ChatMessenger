@@ -32,9 +32,7 @@ class NewMessageController: UITableViewController {
         Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
             if let dictionary = snapshot.value as? [String:AnyObject] {
                 let user = User()
-                user.name = dictionary["name"] as? String
-                user.email = dictionary["email"] as? String
-                user.profileImageUrl = dictionary["profileImageUrl"] as? String
+                user.setValuesForKeys(dictionary)
                 self.users.append(user)
                 
                 DispatchQueue.main.async {
@@ -60,7 +58,7 @@ class NewMessageController: UITableViewController {
         cell.textLabel?.text = user.name
         cell.detailTextLabel?.text = user.email
         if let profileImageUrl = user.profileImageUrl {
-            cell.profileImageView.laodImageUsingCasheWithUrlString(urlString: profileImageUrl)
+            cell.profileImageView.loadImageUsingCasheWithUrlString(urlString: profileImageUrl)
         }
         return cell
     }

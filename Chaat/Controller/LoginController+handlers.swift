@@ -32,7 +32,6 @@ extension LoginController:UIImagePickerControllerDelegate,UINavigationController
             let imageName = NSUUID().uuidString
             let storageReference = Storage.storage().reference().child("users_profile_images").child("\(imageName).jpeg")
             if let imageUpLoadedData = self.inputProfileImageView.image?.jpegData(compressionQuality: 0.1) {
-//            if let imageUpLoadedData = self.inputProfileImageView.image?.pngData() {
                 storageReference.putData(imageUpLoadedData, metadata: nil, completion: { (metadata, error) in
                     if error != nil {
                         print(error as Any)
@@ -56,6 +55,8 @@ extension LoginController:UIImagePickerControllerDelegate,UINavigationController
     }
     
     private func registerUerIntoDatabaseWithUid(uid:String, values:[String:Any]) {
+        let user = User()
+        user.setValuesForKeys(values)
         let reference = Database.database().reference(fromURL: "https://chaat-f074a.firebaseio.com")
         let childReference = reference.child("users").child(uid)
         childReference.updateChildValues(values, withCompletionBlock: { (err, reference) in
@@ -63,7 +64,9 @@ extension LoginController:UIImagePickerControllerDelegate,UINavigationController
                 print(err as Any)
                 return
             }
+            
             print("Save User Successfully into firebase DB")
+            self.messageVC?.setUpNaviBarWithUser(user: user)
             self.dismiss(animated: true, completion: nil)
         })
     }
@@ -79,6 +82,7 @@ extension LoginController:UIImagePickerControllerDelegate,UINavigationController
                 return
             }
             print("user successfully sign in")
+             self.messageVC?.fetchUserAndSetUpNavBar()
             self.dismiss(animated: true, completion: nil)
         }
     }
