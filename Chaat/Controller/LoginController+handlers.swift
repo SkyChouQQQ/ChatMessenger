@@ -12,24 +12,6 @@ import Firebase
 
 extension LoginController:UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
-    
-
-    
-    func handleLogin(){
-        guard let email = emailInputTextField.text, let password = passWordInputTextField.text else {
-            print("Form of Input is not correct")
-            return
-        }
-        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
-            if error != nil {
-                print("user sign in fails")
-                return
-            }
-            print("user successfully sign in")
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
-    
     func handleRegister(){
         
         guard let email = emailInputTextField.text, let password = passWordInputTextField.text, let name = nameInputTextField.text else {
@@ -48,8 +30,9 @@ extension LoginController:UIImagePickerControllerDelegate,UINavigationController
                 return
             }
             let imageName = NSUUID().uuidString
-            let storageReference = Storage.storage().reference().child("users_profile_images").child("\(imageName).png")
-            if let imageUpLoadedData = self.inputProfileImageView.image?.pngData() {
+            let storageReference = Storage.storage().reference().child("users_profile_images").child("\(imageName).jpeg")
+            if let imageUpLoadedData = self.inputProfileImageView.image?.jpegData(compressionQuality: 0.1) {
+//            if let imageUpLoadedData = self.inputProfileImageView.image?.pngData() {
                 storageReference.putData(imageUpLoadedData, metadata: nil, completion: { (metadata, error) in
                     if error != nil {
                         print(error as Any)
@@ -85,6 +68,20 @@ extension LoginController:UIImagePickerControllerDelegate,UINavigationController
         })
     }
     
+    func handleLogin(){
+        guard let email = emailInputTextField.text, let password = passWordInputTextField.text else {
+            print("Form of Input is not correct")
+            return
+        }
+        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+            if error != nil {
+                print("user sign in fails")
+                return
+            }
+            print("user successfully sign in")
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
     
     @objc func handleSeletedProfileImageViewTapped() {
         let imagePickerVC:UIImagePickerController = {
