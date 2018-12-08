@@ -12,28 +12,24 @@ import Firebase
 class UserCell: UITableViewCell {
     var message:Message? {
         didSet {
-
+            
             setUpNameAndProfileImage()
         }
     }
     
     private func setUpNameAndProfileImage() {
-        var chatPairId:String?
-        if message?.messageFromId == Auth.auth().currentUser?.uid{
-            chatPairId = message?.messageToId
-        } else {
-            chatPairId = message?.messageFromId
-        }
-        let messageToUserRef = Database.database().reference().child("users").child(chatPairId!)
-        messageToUserRef.observeSingleEvent(of:.value, andPreviousSiblingKeyWith: { (snapShot, error) in
-            if let dic = snapShot.value as? [String:Any] {
-                self.textLabel?.text = dic["name"] as? String
-                self.detailTextLabel?.text = self.message!.text
-                if let profileImageUrl = dic["profileImageUrl"] as? String {
-                    self.profileImageView.loadImageUsingCasheWithUrlString(urlString: profileImageUrl)
+        if let id = message?.checkChatPartnerId() {
+            let messageToUserRef = Database.database().reference().child("users").child(id)
+            messageToUserRef.observeSingleEvent(of:.value, andPreviousSiblingKeyWith: { (snapShot, error) in
+                if let dic = snapShot.value as? [String:Any] {
+                    self.textLabel?.text = dic["name"] as? String
+                    self.detailTextLabel?.text = self.message!.text
+                    if let profileImageUrl = dic["profileImageUrl"] as? String {
+                        self.profileImageView.loadImageUsingCasheWithUrlString(urlString: profileImageUrl)
+                    }
                 }
-            }
-        }, withCancel: nil)
+            }, withCancel: nil)
+        }
     }
     
    

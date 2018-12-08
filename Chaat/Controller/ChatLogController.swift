@@ -9,11 +9,30 @@
 import UIKit
 import Firebase
 
-class ChatLogController: UICollectionViewController, UITextFieldDelegate {
+class ChatLogController: UICollectionViewController, UITextFieldDelegate,UICollectionViewDelegateFlowLayout {
+    let cellId = "cellId"
     
     var user:User? {
         didSet {
             navigationItem.title = user?.name
+            
+            observeMessages()
+        }
+        
+    }
+    func observeMessages() {
+        guard let currentUserId = Auth.auth().currentUser?.uid else {return }
+        let messagesCurrentUserRef = Database.database().reference().child("user-messages").child("\(currentUserId)")
+        messagesCurrentUserRef.observe(.childAdded) { (snapshot) in
+            let messageId = snapshot.key
+            let messageRef = Database.database().reference().child("messages").child(messageId)
+            messageRef.observe(.value, with: { (snapshot) in
+                if let dic = snapshot.value as? [String:Any] {
+                    let message = Message()
+                    message.setValuesForKeys(dic)
+
+                }
+            })
         }
     }
     
@@ -29,6 +48,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = .white
+        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+    
         setUpInputCompnenetsView()
     }
     
@@ -110,13 +131,25 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
         }
          messageInputTextField.text = ""
     }
+
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        cell.backgroundColor = UIColor.red
+        return cell
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         handleMessageSend()
         return true
     }
     
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 80)
+    }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }

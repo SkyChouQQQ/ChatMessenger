@@ -154,13 +154,12 @@ class MessageController: UITableViewController {
             let messageId = snapShot.key
             let messageRef = Database.database().reference().child("messages").child("\(messageId)")
             messageRef.observeSingleEvent(of: .value, with: { (snapshot) in
-                print(snapshot)
                 if let dic = snapshot.value as? [String:Any] {
                     let message = Message()
                     message.setValuesForKeys(dic)
                     //self.messages.append(message)
-                    if let toId = message.messageToId {
-                        self.messageDictionary[toId] = message
+                    if let chatPartnerId = message.checkChatPartnerId() {
+                        self.messageDictionary[chatPartnerId] = message
                         self.messages = Array(self.messageDictionary.values)
                         self.messages = self.messages.sorted(by: { (m1, m2) -> Bool in
                             return m1.timeStamp!.intValue > m2.timeStamp!.intValue
@@ -175,10 +174,7 @@ class MessageController: UITableViewController {
             })
         }
     }
-    
 
-
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -201,7 +197,19 @@ class MessageController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 72
     }
-    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let message = messages[indexPath.row]
+        guard let chatPartnerId = message.checkChatPartnerId() else {return }
+        let chatPartnerRef = Database.database().reference().child("users").child(chatPartnerId)
+        chatPartnerRef.observeSingleEvent(of: .value) { (snapShot) in
+            if let dic = snapShot.value as? [String:Any] {
+                let user = User()
+                user.id = chatPartnerId
+                user.setValuesForKeys(dic)
+                self.showChatLogControllerWithUser(user)
+            }
+        }
+    }
     
 }
 
