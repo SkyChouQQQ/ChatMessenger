@@ -11,6 +11,10 @@ import Firebase
 
 class MessageController: UITableViewController {
     
+    var messages = [Message]()
+    let cellId = "cellId"
+    var messageDictionary = [String:Message]()
+    
     @objc func handleLogOut() {
         do{
             try Auth.auth().signOut()
@@ -37,36 +41,40 @@ class MessageController: UITableViewController {
         Database.database().reference().child("users").child(uid).observe(.value){ (dataSnapShot) in
             if let dictionary = dataSnapShot.value as? [String:Any] {
                 let user = User()
-                DispatchQueue.main.async {
-                    user.setValuesForKeys(dictionary)
-                    self.setUpNaviBarWithUser(user: user)
-                }
+                user.setValuesForKeys(dictionary)
+                self.setUpNaviBarWithUser(user: user)
             }
         }
     }
     
+
+    lazy var titleView :UIView = {
+        let view  =  UIView()
+        view.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+    
+
     func setUpNaviBarWithUser(user:User) {
-        let titleView:UIView = {
-            let view = UIView()
-            view.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
-            view.backgroundColor = .cyan
-            return view
-        }()
+
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints =  false
+        containerView.isUserInteractionEnabled = true
         
-        let containerView:UIView = {
-           let cv = UIView()
-            cv.translatesAutoresizingMaskIntoConstraints =  false
-            return cv
-        }()
+        titleView.addSubview(containerView)
         
-        let profileImageView = UIImageView()
-        profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        profileImageView.contentMode = .scaleAspectFill
-        profileImageView.layer.cornerRadius = 20
-        profileImageView.layer.masksToBounds = true
-        if let profileImageUrl = user.profileImageUrl {
-        profileImageView.loadImageUsingCasheWithUrlString(urlString: profileImageUrl)
-        }
+        let profileImageView:UIImageView = {
+            let imageView = UIImageView()
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.contentMode = .scaleAspectFill
+            imageView.layer.cornerRadius = 20
+            imageView.layer.masksToBounds = true
+            if let profileImageUrl = user.profileImageUrl {
+                imageView.loadImageUsingCasheWithUrlString(urlString: profileImageUrl)
+            }
+            return imageView
+        }()
         
         let nameLabel:UILabel = {
             let label = UILabel()
@@ -76,7 +84,8 @@ class MessageController: UITableViewController {
             return label
         }()
         
-        titleView.addSubview(containerView)
+        
+        
         containerView.addSubview(profileImageView)
         containerView.addSubview(nameLabel)
         
@@ -93,29 +102,98 @@ class MessageController: UITableViewController {
         nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
         nameLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
         
-        self.navigationItem.titleView = titleView
+        
+
+
+        
     }
     
     @objc func handleNewMessage(){
         let newMessageVC = NewMessageController()
+        newMessageVC.messageController = self
         let naviVC = UINavigationController(rootViewController: newMessageVC)
         present(naviVC, animated: true, completion: nil)
     }
     
+    @objc func showChatLogControllerWithUser(_ user:User) {
+        let chatLogVC = ChatLogController(collectionViewLayout:UICollectionViewFlowLayout())
+            chatLogVC.user = user
+        navigationController?.pushViewController(chatLogVC, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         checkIfUserIsLoggedIn()
+        
+        tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
+        
         let newMessageIconImage = #imageLiteral(resourceName: "new_message_icon")
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "LogOut", style: .plain, target: self, action: #selector(handleLogOut))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: newMessageIconImage, style: .plain, target: self, action: #selector(handleNewMessage))
 
-
+        observeMessages()
 }
-
+    func observeMessages() {
+        let reference = Database.database().reference()
+        let messageRef = reference.child("messages")
+        messageRef.observe( .childAdded , andPreviousSiblingKeyWith: { (snapshot, error) in
+            if error != nil {
+                print(error as Any)
+            }
+            if let dic = snapshot.value as? [String:Any] {
+                let message = Message()
+                message.setValuesForKeys(dic)
+                //self.messages.append(message)
+                if let toId = message.messageToId {
+                    self.messageDictionary[toId] = message
+                    self.messages = Array(self.messageDictionary.values)
+                    self.messages = self.messages.sorted(by: { (m1, m2) -> Bool in
+                        return m1.timeStamp!.intValue > m2.timeStamp!.intValue
+                    })
+                }
+                
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+            
+            
+            
+        }, withCancel: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.titleView = titleView
+    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
+        let message = messages[indexPath.row]
+        cell.message = message
+        if let seconds = message.timeStamp, let timeInterval = TimeInterval(exactly: seconds)  {
+            let date = Date(timeIntervalSince1970: timeInterval)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "a hh:mm"
+            cell.timeLabel.text = dateFormatter.string(from: date)
+        }
+        return cell
+    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       return messages.count
+    }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 72
+    }
+    
+    
 }
+
 
