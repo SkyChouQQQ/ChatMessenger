@@ -66,7 +66,7 @@ extension LoginController:UIImagePickerControllerDelegate,UINavigationController
             }
             
             print("Save User Successfully into firebase DB")
-            self.messageVC?.setUpNaviBarWithUser(user: user)
+            
             self.dismiss(animated: true, completion: nil)
         })
     }
@@ -82,8 +82,10 @@ extension LoginController:UIImagePickerControllerDelegate,UINavigationController
                 return
             }
             print("user successfully sign in")
-             self.messageVC?.fetchUserAndSetUpNavBar()
+            self.messageVC?.fetchUserAndSetUpNavBar()
             self.dismiss(animated: true, completion: nil)
+
+
         }
     }
     

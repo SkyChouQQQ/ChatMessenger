@@ -16,6 +16,7 @@ class MessageController: UITableViewController {
     var messageDictionary = [String:Message]()
     
     @objc func handleLogOut() {
+        
         do{
             try Auth.auth().signOut()
         }catch let logOutError {
@@ -48,16 +49,26 @@ class MessageController: UITableViewController {
     }
     
 
-    lazy var titleView :UIView = {
-        let view  =  UIView()
-        view.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
-        view.isUserInteractionEnabled = true
-        return view
-    }()
+
     
 
     func setUpNaviBarWithUser(user:User) {
+        
+        messages.removeAll()
+        messageDictionary.removeAll()
+        tableView.reloadData()
+        
 
+        observeUserMessages()
+        
+        
+        let titleView = UIView()
+        titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
+        titleView.isUserInteractionEnabled = true
+        
+        
+        
+        
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints =  false
         containerView.isUserInteractionEnabled = true
@@ -102,10 +113,8 @@ class MessageController: UITableViewController {
         nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
         nameLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
         
-        
+        self.navigationItem.titleView = titleView
 
-
-        
     }
     
     @objc func handleNewMessage(){
@@ -133,42 +142,42 @@ class MessageController: UITableViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "LogOut", style: .plain, target: self, action: #selector(handleLogOut))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: newMessageIconImage, style: .plain, target: self, action: #selector(handleNewMessage))
 
-        observeMessages()
+        
 }
-    func observeMessages() {
-        let reference = Database.database().reference()
-        let messageRef = reference.child("messages")
-        messageRef.observe( .childAdded , andPreviousSiblingKeyWith: { (snapshot, error) in
-            if error != nil {
-                print(error as Any)
-            }
-            if let dic = snapshot.value as? [String:Any] {
-                let message = Message()
-                message.setValuesForKeys(dic)
-                //self.messages.append(message)
-                if let toId = message.messageToId {
-                    self.messageDictionary[toId] = message
-                    self.messages = Array(self.messageDictionary.values)
-                    self.messages = self.messages.sorted(by: { (m1, m2) -> Bool in
-                        return m1.timeStamp!.intValue > m2.timeStamp!.intValue
-                    })
+    
+    
+    func observeUserMessages() {
+        guard let userId = Auth.auth().currentUser?.uid else  {return }
+        let ref = Database.database().reference().child("user-messages").child("\(userId)")
+        ref.observe(.childAdded) { (snapShot) in
+            
+            let messageId = snapShot.key
+            let messageRef = Database.database().reference().child("messages").child("\(messageId)")
+            messageRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                print(snapshot)
+                if let dic = snapshot.value as? [String:Any] {
+                    let message = Message()
+                    message.setValuesForKeys(dic)
+                    //self.messages.append(message)
+                    if let toId = message.messageToId {
+                        self.messageDictionary[toId] = message
+                        self.messages = Array(self.messageDictionary.values)
+                        self.messages = self.messages.sorted(by: { (m1, m2) -> Bool in
+                            return m1.timeStamp!.intValue > m2.timeStamp!.intValue
+                        })
+                    }
+                    
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                 }
-                
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-            
-            
-            
-        }, withCancel: nil)
+            })
+        }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationItem.titleView = titleView
-    }
+
+
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent

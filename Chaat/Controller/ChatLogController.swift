@@ -82,13 +82,33 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
     
     @objc func handleMessageSend() {
         let reference = Database.database().reference().child("messages")
-        let childReference = reference.childByAutoId()
         let messageToId = user!.id!
         let messageFromId = Auth.auth().currentUser!.uid
-        let timeStamp:Int = Int(Date().timeIntervalSince1970)
+        
+        let childReference = reference.childByAutoId()
+        let timeStamp = Int(Date().timeIntervalSince1970)
 
         let values = ["text":messageInputTextField.text!,"messageToId":messageToId,"messageFromId":messageFromId,"timeStamp":timeStamp] as [String : Any]
-        childReference.updateChildValues(values)
+        // childReference.updateChildValues(values)
+        
+        
+        childReference.updateChildValues(values) { (error, reference) in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+            
+            guard let messageId = childReference.key else {return}
+
+            let fromUserMessageRef = Database.database().reference().child("user-messages").child(messageFromId)
+            
+            fromUserMessageRef.updateChildValues([messageId:1])
+            
+            let toUserMessageRef = Database.database().reference().child("user-messages").child(messageToId)
+            
+            toUserMessageRef.updateChildValues([messageId:1])
+        }
+         messageInputTextField.text = ""
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

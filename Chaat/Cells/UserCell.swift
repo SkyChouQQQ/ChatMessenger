@@ -12,20 +12,30 @@ import Firebase
 class UserCell: UITableViewCell {
     var message:Message? {
         didSet {
-            let ToId = message!.messageToId!
-            let messageToUserRef = Database.database().reference().child("users").child(ToId)
-            messageToUserRef.observeSingleEvent(of:.value, andPreviousSiblingKeyWith: { (snapShot, error) in
-                if let dic = snapShot.value as? [String:Any] {
-                    self.textLabel?.text = dic["name"] as? String
-                    self.detailTextLabel?.text = self.message!.text
-                    if let profileImageUrl = dic["profileImageUrl"] as? String {
-                        self.profileImageView.loadImageUsingCasheWithUrlString(urlString: profileImageUrl)
-                    }
-                }
-            }, withCancel: nil)
-            
+
+            setUpNameAndProfileImage()
         }
     }
+    
+    private func setUpNameAndProfileImage() {
+        var chatPairId:String?
+        if message?.messageFromId == Auth.auth().currentUser?.uid{
+            chatPairId = message?.messageToId
+        } else {
+            chatPairId = message?.messageFromId
+        }
+        let messageToUserRef = Database.database().reference().child("users").child(chatPairId!)
+        messageToUserRef.observeSingleEvent(of:.value, andPreviousSiblingKeyWith: { (snapShot, error) in
+            if let dic = snapShot.value as? [String:Any] {
+                self.textLabel?.text = dic["name"] as? String
+                self.detailTextLabel?.text = self.message!.text
+                if let profileImageUrl = dic["profileImageUrl"] as? String {
+                    self.profileImageView.loadImageUsingCasheWithUrlString(urlString: profileImageUrl)
+                }
+            }
+        }, withCancel: nil)
+    }
+    
    
     let profileImageView:UIImageView = {
         let imageView = UIImageView()
@@ -41,7 +51,6 @@ class UserCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor.lightGray
-        label.text = "GOGOGO"
         return label
     }()
     
