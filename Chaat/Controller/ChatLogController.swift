@@ -12,6 +12,8 @@ import Firebase
 class ChatLogController: UICollectionViewController, UITextFieldDelegate,UICollectionViewDelegateFlowLayout {
     let cellId = "cellId"
     
+    var messages = [Message]()
+    
     var user:User? {
         didSet {
             navigationItem.title = user?.name
@@ -30,6 +32,12 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
                 if let dic = snapshot.value as? [String:Any] {
                     let message = Message()
                     message.setValuesForKeys(dic)
+                    if message.checkChatPartnerId() == self.user?.id {
+                        self.messages.append(message)
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                    }
 
                 }
             })
@@ -47,14 +55,20 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 58, right: 0)
+        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 58, right: 0)
+        collectionView.alwaysBounceVertical = true
         collectionView?.backgroundColor = .white
-        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        
+        collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
     
         setUpInputCompnenetsView()
     }
     
     private func setUpInputCompnenetsView() {
         let containerView = UIView()
+        containerView.backgroundColor = .white
         containerView.translatesAutoresizingMaskIntoConstraints = false
       
         
@@ -62,7 +76,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         
         containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        containerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -50).isActive = true
+        containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         
@@ -73,17 +87,14 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         
         containerView.addSubview(sendButton)
         
-        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -25).isActive = true
         sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
         sendButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         
-        
-
-        
         containerView.addSubview(messageInputTextField)
         
-        messageInputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        messageInputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 25).isActive = true
         messageInputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
         messageInputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         messageInputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
@@ -100,6 +111,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         containerSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
     }
+    
     
     @objc func handleMessageSend() {
         let reference = Database.database().reference().child("messages")
@@ -132,9 +144,17 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
          messageInputTextField.text = ""
     }
 
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        cell.backgroundColor = UIColor.red
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
+        let message = messages[indexPath.item]
+        cell.messageTextView.text = message.text
+ 
+            cell.chatBubbleViewWidthAnchor?.constant = estimtatedRectForText(message.text!).width + 26
+        
         return cell
     }
     
@@ -144,12 +164,27 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return messages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 80)
+        var height:CGFloat = 80
+        if let messageText = messages[indexPath.item].text {
+             height = estimtatedRectForText(messageText).height+20
+        }
+        return CGSize(width: view.frame.width, height:height)
     }
+    
+    
+    private func estimtatedRectForText(_ string:String)->CGRect {
+        let size = CGSize(width: 200, height: 1000)
+        let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        
+        return NSString(string: string).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 16)], context: nil)
+        
+    }
+    
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
