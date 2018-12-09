@@ -152,8 +152,9 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
         let message = messages[indexPath.item]
         cell.messageTextView.text = message.text
+        let offset:CGFloat = message.text!.isEmpty ? 0 :26
  
-            cell.chatBubbleViewWidthAnchor?.constant = estimtatedRectForText(message.text!).width + 26
+            cell.chatBubbleViewWidthAnchor?.constant = estimtatedRectForText(message.text!).width + offset
         
         return cell
     }
@@ -169,8 +170,10 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var height:CGFloat = 80
+        
         if let messageText = messages[indexPath.item].text {
-             height = estimtatedRectForText(messageText).height+20
+            let offset:CGFloat = (messageText.isEmpty ? 0 :20)
+             height = estimtatedRectForText(messageText).height+offset
         }
         return CGSize(width: view.frame.width, height:height)
     }
@@ -179,6 +182,9 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
     private func estimtatedRectForText(_ string:String)->CGRect {
         let size = CGSize(width: 200, height: 1000)
         let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        if string.isEmpty == true {
+            return .zero
+        }
         
         return NSString(string: string).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 16)], context: nil)
         
