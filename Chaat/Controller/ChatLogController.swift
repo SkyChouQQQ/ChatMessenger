@@ -23,22 +23,20 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         
     }
     func observeMessages() {
-        guard let currentUserId = Auth.auth().currentUser?.uid else {return }
-        let messagesCurrentUserRef = Database.database().reference().child("user-messages").child("\(currentUserId)")
+        guard let currentUserId = Auth.auth().currentUser?.uid, let chatPartnerId = user?.id else {return }
+        let messagesCurrentUserRef = Database.database().reference().child("user-messages").child("\(currentUserId)").child(chatPartnerId)
         messagesCurrentUserRef.observe(.childAdded) { (snapshot) in
+            
             let messageId = snapshot.key
             let messageRef = Database.database().reference().child("messages").child(messageId)
             messageRef.observe(.value, with: { (snapshot) in
                 if let dic = snapshot.value as? [String:Any] {
                     let message = Message()
                     message.setValuesForKeys(dic)
-                    if message.checkChatPartnerId() == self.user?.id {
-                        self.messages.append(message)
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
+                    self.messages.append(message)
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
                     }
-
                 }
             })
         }
@@ -179,11 +177,11 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
             
             guard let messageId = childReference.key else {return}
 
-            let fromUserMessageRef = Database.database().reference().child("user-messages").child(messageFromId)
+            let fromUserMessageRef = Database.database().reference().child("user-messages").child(messageFromId).child(messageToId)
             
             fromUserMessageRef.updateChildValues([messageId:1])
             
-            let toUserMessageRef = Database.database().reference().child("user-messages").child(messageToId)
+            let toUserMessageRef = Database.database().reference().child("user-messages").child(messageToId).child(messageFromId)
             
             toUserMessageRef.updateChildValues([messageId:1])
         }

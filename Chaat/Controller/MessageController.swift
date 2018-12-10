@@ -152,29 +152,41 @@ class MessageController: UITableViewController {
         guard let userId = Auth.auth().currentUser?.uid else  {return }
         let ref = Database.database().reference().child("user-messages").child("\(userId)")
         ref.observe(.childAdded) { (snapShot) in
-            
-            let messageId = snapShot.key
-            let messageRef = Database.database().reference().child("messages").child("\(messageId)")
-            messageRef.observeSingleEvent(of: .value, with: { (snapshot) in
-                if let dic = snapshot.value as? [String:Any] {
-                    let message = Message()
-                    message.setValuesForKeys(dic)
-                    if let chatPartnerId = message.checkChatPartnerId() {
-                        self.messageDictionary[chatPartnerId] = message
-                        self.messages = Array(self.messageDictionary.values)
-                        self.messages = self.messages.sorted(by: { (m1, m2) -> Bool in
-                            return m1.timeStamp!.intValue > m2.timeStamp!.intValue
-                        })
-                    }
-                    self.reloadtableTimer?.invalidate()
-                    self.reloadtableTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
-                    
-                }
+            let withChatUserId = snapShot.key
+            let checkMessageIdRef = Database.database().reference().child("user-messages").child("\(userId)").child("\(withChatUserId)")
+            checkMessageIdRef.observe(.childAdded, with: { (snapShot) in
+                let messageId = snapShot.key
+                self.fetchMessages(with: messageId)
             })
         }
     }
-
+    
+    private func fetchMessages(with messageId:String) {
+        let messageRef = Database.database().reference().child("messages").child(messageId)
+        messageRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let dic = snapshot.value as? [String:Any] {
+                let message = Message()
+                message.setValuesForKeys(dic)
+                if let chatPartnerId = message.checkChatPartnerId() {
+                    self.messageDictionary[chatPartnerId] = message
+                }
+                self.attempReloadTable()
+            }
+        })
+    }
+    
+    private func attempReloadTable() {
+        self.reloadtableTimer?.invalidate()
+        self.reloadtableTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
+    }
+    
     @objc func handleReloadTable() {
+
+        self.messages = Array(self.messageDictionary.values)
+        self.messages = self.messages.sorted(by: { (m1, m2) -> Bool in
+            return m1.timeStamp!.intValue > m2.timeStamp!.intValue
+        })
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
