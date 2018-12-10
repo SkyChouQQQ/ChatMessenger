@@ -167,7 +167,7 @@ class MessageController: UITableViewController {
                         })
                     }
                     self.reloadtableTimer?.invalidate()
-                    self.reloadtableTimer = Timer.scheduledTimer(timeInterval: 0.12, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
+                    self.reloadtableTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
                     
                 }
             })
@@ -176,7 +176,6 @@ class MessageController: UITableViewController {
 
     @objc func handleReloadTable() {
         DispatchQueue.main.async {
-            print("reload table")
             self.tableView.reloadData()
         }
         

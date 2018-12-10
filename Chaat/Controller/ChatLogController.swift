@@ -64,7 +64,48 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
     
         setUpInputCompnenetsView()
+        
+        subscribeToKeyboardNotifications()
+        
+
+        
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        unSubscribeToKeyboardNotifications()
+    }
+    
+    func subscribeToKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func unSubscribeToKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification:Notification) {
+        if let kbFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,let kbShowDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
+            containerViewBottomAnchor?.constant = -kbFrame.height
+            UIView.animate(withDuration: kbShowDuration) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification:Notification) {
+        containerViewBottomAnchor?.constant = 0
+        if let kbHideDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
+            UIView.animate(withDuration: kbHideDuration) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
+    
+    var containerViewBottomAnchor:NSLayoutConstraint?
     
     private func setUpInputCompnenetsView() {
         let containerView = UIView()
@@ -75,7 +116,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         view.addSubview(containerView)
         
         containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        containerViewBottomAnchor = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant:0)
+        containerViewBottomAnchor?.isActive = true
         containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
@@ -188,6 +230,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         handleMessageSend()
         return true
     }
@@ -203,7 +246,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
             let offset:CGFloat = (messageText.isEmpty ? 0 :20)
              height = estimtatedRectForText(messageText).height+offset
         }
-        return CGSize(width: view.frame.width, height:height)
+        let width = UIScreen.main.bounds.width
+        return CGSize(width: width, height:height)
     }
     
     
