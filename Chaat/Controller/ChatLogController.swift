@@ -114,6 +114,10 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
     
     
     @objc func handleMessageSend() {
+        if messageInputTextField.text!.isEmpty {
+            return
+        }
+        
         let reference = Database.database().reference().child("messages")
         let messageToId = user!.id!
         let messageFromId = Auth.auth().currentUser!.uid
@@ -151,12 +155,36 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
         let message = messages[indexPath.item]
-        cell.messageTextView.text = message.text
-        let offset:CGFloat = message.text!.isEmpty ? 0 :26
- 
-            cell.chatBubbleViewWidthAnchor?.constant = estimtatedRectForText(message.text!).width + offset
+        setUpChatMessageCell(cell: cell, message: message)
         
         return cell
+    }
+    
+    private func setUpChatMessageCell(cell:ChatMessageCell,message:Message) {
+        
+        if let profileImageUrlString = self.user?.profileImageUrl {
+            cell.profileImageView.loadImageUsingCasheWithUrlString(urlString: profileImageUrlString)
+        }
+        
+        let offset:CGFloat = message.text!.isEmpty ? 0 : 26
+        cell.messageTextView.text = message.text
+        cell.chatBubbleViewWidthAnchor?.constant = estimtatedRectForText(message.text!).width + offset
+        
+        if message.messageFromId == Auth.auth().currentUser?.uid {
+            cell.chatBubbleView.backgroundColor = ChatMessageCell.chatBubbleBlue
+            cell.messageTextView.textColor = .white
+            cell.profileImageView.isHidden = true
+            cell.chatBubbleRightAnchor?.isActive = true
+            cell.chatBubbleLeftAnchor?.isActive = false
+        } else {
+            cell.chatBubbleView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
+            cell.messageTextView.textColor = .black
+            cell.profileImageView.isHidden = false
+            cell.chatBubbleRightAnchor?.isActive = false
+            cell.chatBubbleLeftAnchor?.isActive = true
+        }
+        
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -145,6 +145,8 @@ class MessageController: UITableViewController {
         
 }
     
+    var reloadtableTimer:Timer?
+    
     
     func observeUserMessages() {
         guard let userId = Auth.auth().currentUser?.uid else  {return }
@@ -157,7 +159,6 @@ class MessageController: UITableViewController {
                 if let dic = snapshot.value as? [String:Any] {
                     let message = Message()
                     message.setValuesForKeys(dic)
-                    //self.messages.append(message)
                     if let chatPartnerId = message.checkChatPartnerId() {
                         self.messageDictionary[chatPartnerId] = message
                         self.messages = Array(self.messageDictionary.values)
@@ -165,16 +166,22 @@ class MessageController: UITableViewController {
                             return m1.timeStamp!.intValue > m2.timeStamp!.intValue
                         })
                     }
+                    self.reloadtableTimer?.invalidate()
+                    self.reloadtableTimer = Timer.scheduledTimer(timeInterval: 0.12, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
                     
-                    
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
                 }
             })
         }
     }
 
+    @objc func handleReloadTable() {
+        DispatchQueue.main.async {
+            print("reload table")
+            self.tableView.reloadData()
+        }
+        
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
