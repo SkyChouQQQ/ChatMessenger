@@ -31,8 +31,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
             let messageRef = Database.database().reference().child("messages").child(messageId)
             messageRef.observe(.value, with: { (snapshot) in
                 if let dic = snapshot.value as? [String:Any] {
-                    let message = Message()
-                    message.setValuesForKeys(dic)
+                    let message = Message.init(dictionary: dic)
                     self.messages.append(message)
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
@@ -207,7 +206,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
                     }
                     guard let imageUrlString = url?.absoluteString else {return }
                     
-                    self.sendMessageWithImageUrl(imageUrlString)
+                    self.sendMessageWithImageUrl(imageUrlString, image:image)
                     
                     
                 })
@@ -215,7 +214,11 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         }
     }
     
-    private func sendMessageWithImageUrl(_ imageUrlString:String) {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    private func sendMessageWithImageUrl(_ imageUrlString:String,image:UIImage) {
         let reference = Database.database().reference().child("messages")
         let messageToId = user!.id!
         let messageFromId = Auth.auth().currentUser!.uid
@@ -223,7 +226,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         let childReference = reference.childByAutoId()
         let timeStamp = Int(Date().timeIntervalSince1970)
         
-        let values = ["imageUrl":imageUrlString,"messageToId":messageToId,"messageFromId":messageFromId,"timeStamp":timeStamp] as [String : Any]
+        let values:[String : Any] = ["imageUrl":imageUrlString,"messageToId":messageToId,"messageFromId":messageFromId,"timeStamp":timeStamp,"imageWidth":image.size.width,"imageHeight":image.size.height]
         
         childReference.updateChildValues(values) { (error, reference) in
             if error != nil {
@@ -245,8 +248,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
     }
     
     
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
+    private func sendMessageWithProperties(dictionary:[String:AnyObject]) {
+        
     }
     
     @objc func handleMessageSend() {
@@ -283,6 +286,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         }
          messageInputTextField.text = ""
     }
+    
+    
 
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView.collectionViewLayout.invalidateLayout()
@@ -308,6 +313,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         if let messageText = message.text {
             let offset:CGFloat = messageText.isEmpty ? 0 : 26
             cell.chatBubbleViewWidthAnchor?.constant = estimtatedRectForText(messageText).width + offset
+        } else if message.imageUrl != nil {
+            cell.chatBubbleViewWidthAnchor?.constant = 200
         }
         
         if message.messageFromId == Auth.auth().currentUser?.uid {
@@ -346,13 +353,18 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var height:CGFloat = 80
         
-        if let messageText = messages[indexPath.item].text {
+        let message = messages[indexPath.item]
+        if let messageText = message.text {
             let offset:CGFloat = (messageText.isEmpty ? 0 :20)
              height = estimtatedRectForText(messageText).height+offset
+        } else if let imageHeight = message.imageHeight?.floatValue, let imageWidth = message.imageWidth?.floatValue {
+            // h1/h2 = w1/w2
+            height = CGFloat(((imageHeight*200)/imageWidth))
         }
         let width = UIScreen.main.bounds.width
         return CGSize(width: width, height:height)
     }
+    
     
     
     private func estimtatedRectForText(_ string:String)->CGRect {
