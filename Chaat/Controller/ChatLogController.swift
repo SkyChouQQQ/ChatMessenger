@@ -35,6 +35,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
                     self.messages.append(message)
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
+                        let indexPath = IndexPath(item: self.messages.count-1, section: 0)
+                        self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
                     }
                 }
             })
