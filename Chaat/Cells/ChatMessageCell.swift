@@ -65,6 +65,7 @@ class ChatMessageCell: UICollectionViewCell {
         delegate?.handleImageViewZooming(tapGesture: tapGestureRecognizer)
     }
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
        

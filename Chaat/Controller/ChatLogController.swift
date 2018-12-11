@@ -373,9 +373,36 @@ class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollec
     
     func handleImageViewZooming(tapGesture: UITapGestureRecognizer) {
         guard let imageView = tapGesture.view as? UIImageView else {return }
-        print(imageView.image?.size)
+        performzoominForStartingImageView(startingImageView: imageView)
     }
     
+    private func performzoominForStartingImageView(startingImageView:UIImageView) {
+        guard let startingFrame = startingImageView.superview?.convert(startingImageView.frame, to: nil) else {return }
+        
+        let zoomingImageView = UIImageView()
+        zoomingImageView.frame = startingFrame
+        zoomingImageView.image = startingImageView.image
+        
+        if let window = UIApplication.shared.keyWindow {
+            let zoomingBackgroundView = UIView(frame: window.frame)
+            zoomingBackgroundView.alpha = 0
+            zoomingBackgroundView.backgroundColor = UIColor.black
+            
+            
+            let height = ((window.frame.width)*startingImageView.frame.height)/startingImageView.frame.width
+            
+            window.addSubview(zoomingBackgroundView)
+            window.addSubview(zoomingImageView)
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                zoomingBackgroundView.alpha = 1
+                zoomingImageView.frame = CGRect(x: 0, y: 0, width: window.frame.width, height: height)
+                zoomingImageView.center = window.center
+                
+                
+            }, completion: nil)
+        }
+    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
