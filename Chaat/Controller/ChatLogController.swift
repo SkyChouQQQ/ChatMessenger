@@ -232,7 +232,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
     private func sendMessageWithImageUrl(_ imageUrlString:String,image:UIImage) {
 
         
-        let values:[String : Any] = ["imageUrl":imageUrlString,"imageWidth":image.size.width,"imageHeight":image.size.height]
+        let values:[String : Any] = ["imageUrl":imageUrlString,"imageWidth":image.size.width,"imageHeight":image.size.height,"text":"Image has been sent."]
 
         sendMessageWithProperties(dictionary: values)
     }
@@ -246,7 +246,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         let childReference = reference.childByAutoId()
         let timeStamp = Int(Date().timeIntervalSince1970)
         
-        var values:[String : Any] = ["messageToId":messageToId,"messageFromId":messageFromId,"timeStamp":timeStamp,"text":messageInputTextField.text!]
+        var values:[String : Any] = ["messageToId":messageToId,"messageFromId":messageFromId,"timeStamp":timeStamp]
         dictionary.forEach{values[$0] = $1}
         
         childReference.updateChildValues(values) { (error, reference) in
@@ -268,11 +268,13 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
     }
     
     @objc func handleMessageSend() {
-        if messageInputTextField.text!.isEmpty {
+        guard let messageText = messageInputTextField.text else {return }
+        if messageText.isEmpty {
             return
         }
-        sendMessageWithProperties(dictionary: [:])
-         messageInputTextField.text = ""
+        
+        sendMessageWithProperties(dictionary: ["text":messageText])
+         messageInputTextField.text = nil
     }
     
     
@@ -298,10 +300,12 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         
         cell.messageTextView.text = message.text
         
-        if let messageText = message.text {
+        if let messageText = message.text, message.imageUrl == nil {
             let offset:CGFloat = messageText.isEmpty ? 0 : 26
             cell.chatBubbleViewWidthAnchor?.constant = estimtatedRectForText(messageText).width + offset
+            cell.messageTextView.isHidden = false
         } else if message.imageUrl != nil {
+            cell.messageTextView.isHidden = true
             cell.chatBubbleViewWidthAnchor?.constant = 200
         }
         
@@ -342,7 +346,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         var height:CGFloat = 80
         
         let message = messages[indexPath.item]
-        if let messageText = message.text {
+        if let messageText = message.text, message.imageUrl == nil {
             let offset:CGFloat = (messageText.isEmpty ? 0 :20)
              height = estimtatedRectForText(messageText).height+offset
         } else if let imageHeight = message.imageHeight?.floatValue, let imageWidth = message.imageWidth?.floatValue {
