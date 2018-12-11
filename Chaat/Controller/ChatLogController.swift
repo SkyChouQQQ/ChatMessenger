@@ -76,16 +76,25 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
     }
     
     func subscribeToKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+              NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidHide), name: UIResponder.keyboardDidShowNotification, object: nil)
     }
     
     func unSubscribeToKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    @objc func keyboardWillShow(notification:Notification) {
+    @objc func handleKeyboardDidHide() {
+        if messages.count>0 {
+            let indexPath = IndexPath(item: messages.count-1, section: 0)
+            collectionView.scrollToItem(at: indexPath, at:.top, animated: true)
+        }
+    }
+    
+    @objc func handleKeyboardWillShow(notification:Notification) {
         if let kbFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,let kbShowDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
             containerViewBottomAnchor?.constant = -kbFrame.height
             UIView.animate(withDuration: kbShowDuration) {
@@ -94,7 +103,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         }
     }
     
-    @objc func keyboardWillHide(notification:Notification) {
+    @objc func handleKeyboardWillHide(notification:Notification) {
         containerViewBottomAnchor?.constant = 0
         if let kbHideDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
             UIView.animate(withDuration: kbHideDuration) {
