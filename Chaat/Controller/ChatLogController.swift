@@ -359,6 +359,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
     
     
     
+    
+    
     private func estimtatedRectForText(_ string:String)->CGRect {
         let size = CGSize(width: 200, height: 1000)
         let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
