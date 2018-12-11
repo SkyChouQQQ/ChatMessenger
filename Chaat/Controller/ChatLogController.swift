@@ -219,6 +219,15 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
     }
     
     private func sendMessageWithImageUrl(_ imageUrlString:String,image:UIImage) {
+
+        
+        let values:[String : Any] = ["imageUrl":imageUrlString,"imageWidth":image.size.width,"imageHeight":image.size.height]
+
+        sendMessageWithProperties(dictionary: values)
+    }
+    
+    
+    private func sendMessageWithProperties(dictionary:[String:Any]) {
         let reference = Database.database().reference().child("messages")
         let messageToId = user!.id!
         let messageFromId = Auth.auth().currentUser!.uid
@@ -226,7 +235,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         let childReference = reference.childByAutoId()
         let timeStamp = Int(Date().timeIntervalSince1970)
         
-        let values:[String : Any] = ["imageUrl":imageUrlString,"messageToId":messageToId,"messageFromId":messageFromId,"timeStamp":timeStamp,"imageWidth":image.size.width,"imageHeight":image.size.height]
+        var values:[String : Any] = ["messageToId":messageToId,"messageFromId":messageFromId,"timeStamp":timeStamp,"text":messageInputTextField.text!]
+        dictionary.forEach{values[$0] = $1}
         
         childReference.updateChildValues(values) { (error, reference) in
             if error != nil {
@@ -244,46 +254,13 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
             
             toUserMessageRef.updateChildValues([messageId:1])
         }
-        
-    }
-    
-    
-    private func sendMessageWithProperties(dictionary:[String:AnyObject]) {
-        
     }
     
     @objc func handleMessageSend() {
         if messageInputTextField.text!.isEmpty {
             return
         }
-        
-        let reference = Database.database().reference().child("messages")
-        let messageToId = user!.id!
-        let messageFromId = Auth.auth().currentUser!.uid
-        
-        let childReference = reference.childByAutoId()
-        let timeStamp = Int(Date().timeIntervalSince1970)
-
-        let values = ["text":messageInputTextField.text!,"messageToId":messageToId,"messageFromId":messageFromId,"timeStamp":timeStamp] as [String : Any]
-        // childReference.updateChildValues(values)
-        
-        
-        childReference.updateChildValues(values) { (error, reference) in
-            if error != nil {
-                print(error as Any)
-                return
-            }
-            
-            guard let messageId = childReference.key else {return}
-
-            let fromUserMessageRef = Database.database().reference().child("user-messages").child(messageFromId).child(messageToId)
-            
-            fromUserMessageRef.updateChildValues([messageId:1])
-            
-            let toUserMessageRef = Database.database().reference().child("user-messages").child(messageToId).child(messageFromId)
-            
-            toUserMessageRef.updateChildValues([messageId:1])
-        }
+        sendMessageWithProperties(dictionary: [:])
          messageInputTextField.text = ""
     }
     
