@@ -8,7 +8,14 @@
 
 import UIKit
 
+protocol ChatMessageCellDelegate {
+    func handleImageViewZooming(tapGesture:UITapGestureRecognizer)
+}
+
+
 class ChatMessageCell: UICollectionViewCell {
+    
+    var delegate:ChatMessageCellDelegate?
     
     var chatBubbleViewWidthAnchor:NSLayoutConstraint?
     var chatBubbleRightAnchor:NSLayoutConstraint?
@@ -43,13 +50,20 @@ class ChatMessageCell: UICollectionViewCell {
         return iv
     }()
     
-    let messageImageView:UIImageView = {
+    lazy var messageImageView:UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.layer.cornerRadius = 16
         iv.layer.masksToBounds = true
+        iv.isUserInteractionEnabled = true
+        iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleImageViewZoomingTap(tapGestureRecognizer:))))
         return iv
     }()
+    
+    @objc func handleImageViewZoomingTap(tapGestureRecognizer:UITapGestureRecognizer) {
+        print(123)
+        delegate?.handleImageViewZooming(tapGesture: tapGestureRecognizer)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

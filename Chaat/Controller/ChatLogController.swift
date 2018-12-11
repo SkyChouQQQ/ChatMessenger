@@ -9,7 +9,9 @@
 import UIKit
 import Firebase
 
-class ChatLogController: UICollectionViewController, UITextFieldDelegate,UICollectionViewDelegateFlowLayout,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollectionViewDelegateFlowLayout,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ChatMessageCellDelegate {
+
+    
     let cellId = "cellId"
     
     var messages = [Message]()
@@ -285,6 +287,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
+        cell.delegate = self
         let message = messages[indexPath.item]
         setUpChatMessageCell(cell: cell, message: message)
         
@@ -357,10 +360,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         return CGSize(width: width, height:height)
     }
     
-    
-    
-    
-    
     private func estimtatedRectForText(_ string:String)->CGRect {
         let size = CGSize(width: 200, height: 1000)
         let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
@@ -370,6 +369,11 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate,UIColle
         
         return NSString(string: string).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 16)], context: nil)
         
+    }
+    
+    func handleImageViewZooming(tapGesture: UITapGestureRecognizer) {
+        guard let imageView = tapGesture.view as? UIImageView else {return }
+        print(imageView.image?.size)
     }
     
     
