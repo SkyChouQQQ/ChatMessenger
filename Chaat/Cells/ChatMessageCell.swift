@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ChatMessageCellDelegate {
-    func handleImageViewZooming(tapGesture:UITapGestureRecognizer)
+    func handleImageViewZoomIn(tapGesture:UITapGestureRecognizer)
 }
 
 
@@ -61,8 +61,7 @@ class ChatMessageCell: UICollectionViewCell {
     }()
     
     @objc func handleImageViewZoomingTap(tapGestureRecognizer:UITapGestureRecognizer) {
-        print(123)
-        delegate?.handleImageViewZooming(tapGesture: tapGestureRecognizer)
+        delegate?.handleImageViewZoomIn(tapGesture: tapGestureRecognizer)
     }
     
     

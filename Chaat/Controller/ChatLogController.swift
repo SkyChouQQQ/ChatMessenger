@@ -80,7 +80,8 @@ class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollec
     func subscribeToKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-              NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidHide), name: UIResponder.keyboardDidShowNotification, object: nil)
+       
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidHide), name: UIResponder.keyboardDidShowNotification, object: nil)
     }
     
     func unSubscribeToKeyboardNotifications() {
@@ -114,6 +115,12 @@ class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollec
         }
     }
     
+    let inputContainerView:UIView = {
+        let containerView = UIView()
+        containerView.backgroundColor = .white
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        return containerView
+    }()
     
     var containerViewBottomAnchor:NSLayoutConstraint?
     
@@ -371,37 +378,62 @@ class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollec
         
     }
     
-    func handleImageViewZooming(tapGesture: UITapGestureRecognizer) {
-        guard let imageView = tapGesture.view as? UIImageView else {return }
-        performzoominForStartingImageView(startingImageView: imageView)
+    func handleImageViewZoomIn(tapGesture: UITapGestureRecognizer) {
+        self.startingZoomInImageView = tapGesture.view as? UIImageView
+        performzoominForStartingImageView(startingImageView: startingZoomInImageView!)
     }
     
+    var startingZoomInImageView:UIImageView?
+    var startingFrame:CGRect?
+    var zoomingBackgroundView:UIView?
+    
     private func performzoominForStartingImageView(startingImageView:UIImageView) {
-        guard let startingFrame = startingImageView.superview?.convert(startingImageView.frame, to: nil) else {return }
+            self.startingZoomInImageView?.isHidden = true
+         startingFrame = startingImageView.superview?.convert(startingImageView.frame, to: nil)
         
-        let zoomingImageView = UIImageView()
-        zoomingImageView.frame = startingFrame
-        zoomingImageView.image = startingImageView.image
+        let zoomInImageView = UIImageView()
+        zoomInImageView.frame = startingFrame!
+        zoomInImageView.layer.cornerRadius = 16
+        zoomInImageView.layer.masksToBounds = true
+        zoomInImageView.image = startingImageView.image
+        zoomInImageView.isUserInteractionEnabled = true
+        zoomInImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:#selector(handleZoomOut(tapGesture:))))
         
         if let window = UIApplication.shared.keyWindow {
-            let zoomingBackgroundView = UIView(frame: window.frame)
-            zoomingBackgroundView.alpha = 0
-            zoomingBackgroundView.backgroundColor = UIColor.black
+            zoomingBackgroundView = UIView(frame: window.frame)
+            zoomingBackgroundView?.alpha = 0
+            zoomingBackgroundView?.backgroundColor = UIColor.black
             
             
             let height = ((window.frame.width)*startingImageView.frame.height)/startingImageView.frame.width
             
-            window.addSubview(zoomingBackgroundView)
-            window.addSubview(zoomingImageView)
+            window.addSubview(zoomingBackgroundView!)
+            window.addSubview(zoomInImageView)
             
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                zoomingBackgroundView.alpha = 1
-                zoomingImageView.frame = CGRect(x: 0, y: 0, width: window.frame.width, height: height)
-                zoomingImageView.center = window.center
-                
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.zoomingBackgroundView?.alpha = 1
+                zoomInImageView.frame = CGRect(x: 0, y: 0, width: window.frame.width, height: height)
+                zoomInImageView.center = window.center
+                self.inputContainerView.alpha = 0
                 
             }, completion: nil)
         }
+    }
+    
+    @objc func handleZoomOut(tapGesture:UITapGestureRecognizer) {
+        guard let zoomOutImageView = tapGesture.view as? UIImageView else {return }
+        zoomOutImageView.layer.cornerRadius = 16
+        zoomOutImageView.clipsToBounds = true
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            zoomOutImageView.frame = self.startingFrame!
+            self.zoomingBackgroundView?.alpha = 0
+            self.inputContainerView.alpha = 1
+            
+        }, completion:{ (completion) in
+            self.startingZoomInImageView?.isHidden = false
+            zoomOutImageView.removeFromSuperview()
+        
+        })
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
