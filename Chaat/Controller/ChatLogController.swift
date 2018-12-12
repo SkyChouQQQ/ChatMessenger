@@ -36,13 +36,27 @@ class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollec
                     let message = Message.init(dictionary: dic)
                     self.messages.append(message)
                     DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                        let indexPath = IndexPath(item: self.messages.count-1, section: 0)
-                        self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+                        self.attemptReloadChatCollection()
                     }
                 }
             })
         }
+    }
+    
+    var reloadChatCollection:Timer?
+    
+    private func attemptReloadChatCollection() {
+        self.reloadChatCollection?.invalidate()
+        self.reloadChatCollection = Timer.scheduledTimer(timeInterval: 0.15, target: self, selector: #selector(self.handleReloadChatCollection), userInfo: nil, repeats: false)
+    }
+    
+    @objc func handleReloadChatCollection() {
+        self.collectionView.reloadData()
+        if messages.count>0 {
+            let indexPath = IndexPath(item: self.messages.count-1, section: 0)
+            self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+        }
+
     }
     
     lazy var messageInputTextField:UITextField = {
