@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import MobileCoreServices
+import AVFoundation
 
 class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollectionViewDelegateFlowLayout,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ChatMessageCellDelegate {
 
@@ -204,11 +206,53 @@ class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollec
         let imagePickerVC = UIImagePickerController()
         imagePickerVC.allowsEditing = true
         imagePickerVC.delegate = self
+        imagePickerVC.mediaTypes = [kUTTypeImage as String,kUTTypeMovie as String]
         present(imagePickerVC, animated: true, completion: nil)
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
+        if let videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
+            handleVideoSelectedForUrl(url: videoUrl)
+        }
+        
+        handleImageSelectedForInfo(info: info)
+        
+
+    }
+    
+    private func handleVideoSelectedForUrl(url:URL) {
+        let videoFile = "videoFile"
+        let videoRef = Storage.storage().reference().child(videoFile).child("testvideo.mov")
+        let uploadVideoTask = videoRef.putFile(from: url, metadata: nil) { (metaData, error) in
+            if error != nil {
+                print("upload video failed with error", error as Any)
+            }
+            
+            videoRef.downloadURL(completion: { (url, error) in
+                guard let videoUrl = url?.absoluteString  else {return }
+                let values:[String : Any] = ["videoUrl":videoUrl]
+                self.sendMessageWithProperties(dictionary: values)
+            })
+            
+        }
+        
+        uploadVideoTask.observe(.progress) { (snapShot) in
+            if let uploadUbitCount = snapShot.progress?.completedUnitCount {
+                self.navigationItem.title = String(uploadUbitCount)
+            }
+        }
+        
+        uploadVideoTask.observe(.success) { (snapShot) in
+            self.navigationItem.title = self.user?.name
+        }
+    }
+    
+    private func getThumbnailImageWithVideoUrl(url:URL)->UIImage {
+        
+    }
+    
+    private func handleImageSelectedForInfo(info:[UIImagePickerController.InfoKey : Any]) {
         var selectedImageFromPicker:UIImage?
         
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
@@ -221,7 +265,9 @@ class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollec
             upLoadToFirDBWithSelectedImage(of: selectedImage)
         }
         dismiss(animated: true, completion: nil)
+        
     }
+    
     
     private func upLoadToFirDBWithSelectedImage(of image:UIImage) {
         let imageName = NSUUID().uuidString
