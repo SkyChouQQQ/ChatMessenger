@@ -32,7 +32,13 @@ class UserCell: UITableViewCell {
         }
     }
     
-   
+    let userCellSeparatorLine:UIView = {
+        let iv = UIView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.backgroundColor = UIColor(r: 220, g: 220, b: 220)
+        return iv
+    }()
+    
     let profileImageView:UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,6 +62,7 @@ class UserCell: UITableViewCell {
        
         addSubview(profileImageView)
         addSubview(timeLabel)
+        addSubview(userCellSeparatorLine)
         
         setUpView()
     }
@@ -74,6 +81,11 @@ class UserCell: UITableViewCell {
         timeLabel.topAnchor.constraint(equalTo: self.topAnchor,constant:18).isActive = true
         timeLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         timeLabel.heightAnchor.constraint(equalTo: textLabel!.heightAnchor).isActive = true
+        
+        userCellSeparatorLine.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        userCellSeparatorLine.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        userCellSeparatorLine.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        userCellSeparatorLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
     
     override func layoutSubviews() {

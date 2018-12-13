@@ -143,6 +143,8 @@ class MessageController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: newMessageIconImage, style: .plain, target: self, action: #selector(handleNewMessage))
         
         tableView.allowsMultipleSelectionDuringEditing = true
+        
+        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
 
         
 }
