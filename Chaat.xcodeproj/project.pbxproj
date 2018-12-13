@@ -15,6 +15,7 @@
 		844851D321B81DD8008DD6DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 844851D221B81DD8008DD6DB /* Assets.xcassets */; };
 		844851D621B81DD8008DD6DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844851D421B81DD8008DD6DB /* LaunchScreen.storyboard */; };
 		844851DF21B825FB008DD6DB /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844851DE21B825FB008DD6DB /* LoginController.swift */; };
+		844938BA21C24CE70018F9B8 /* ChatLogInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844938B921C24CE70018F9B8 /* ChatLogInputView.swift */; };
 		8449B93121BA5A8200C0B6A8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8449B93021BA5A8200C0B6A8 /* Extensions.swift */; };
 		8449B93321BA8EF300C0B6A8 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8449B93221BA8EF300C0B6A8 /* ChatLogController.swift */; };
 		844B9B4821BD015F00899661 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844B9B4721BD015F00899661 /* ChatMessageCell.swift */; };
@@ -37,6 +38,7 @@
 		844851D521B81DD8008DD6DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		844851D721B81DD8008DD6DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		844851DE21B825FB008DD6DB /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		844938B921C24CE70018F9B8 /* ChatLogInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogInputView.swift; sourceTree = "<group>"; };
 		8449B93021BA5A8200C0B6A8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8449B93221BA8EF300C0B6A8 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		844B9B4721BD015F00899661 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 		844851CA21B81DD3008DD6DB /* Chaat */ = {
 			isa = PBXGroup;
 			children = (
+				844938B821C24C530018F9B8 /* View */,
 				8449B92F21BA5A3400C0B6A8 /* Helpers */,
 				844C0EE021B9727900810664 /* Supporting Files */,
 				844C0EDD21B9722100810664 /* Model */,
@@ -111,6 +114,14 @@
 				8449B93221BA8EF300C0B6A8 /* ChatLogController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		844938B821C24C530018F9B8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				844938B921C24CE70018F9B8 /* ChatLogInputView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		8449B92F21BA5A3400C0B6A8 /* Helpers */ = {
@@ -283,6 +294,7 @@
 				844C0EDF21B9723200810664 /* User.swift in Sources */,
 				8449B93121BA5A8200C0B6A8 /* Extensions.swift in Sources */,
 				844C0EDC21B9605300810664 /* UserCell.swift in Sources */,
+				844938BA21C24CE70018F9B8 /* ChatLogInputView.swift in Sources */,
 				844C0EE221B99FFE00810664 /* LoginController+handlers.swift in Sources */,
 				844B9B4821BD015F00899661 /* ChatMessageCell.swift in Sources */,
 				8448386721BBC9E10057DE5B /* Message.swift in Sources */,

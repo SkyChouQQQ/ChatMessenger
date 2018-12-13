@@ -155,14 +155,14 @@ class MessageController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let message = messages[indexPath.row]
         if let chatPartnerId = message.checkChatPartnerId() {
-            deleteFIRChatMessengesLogForChatPartnerUidFromCurrentUser(chatPartnerId)
+            deleteFIRChatUserMessengesLogForChatPartnerUidFromCurrentUser(chatPartnerId)
         }
         
         
     }
     
     
-    private func deleteFIRChatMessengesLogForChatPartnerUidFromCurrentUser(_ chatPartnerId:String) {
+    private func deleteFIRChatUserMessengesLogForChatPartnerUidFromCurrentUser(_ chatPartnerId:String) {
         guard let currentUSerUid = Auth.auth().currentUser?.uid else { return }
         let aboutToDeleteMessageLogref = Database.database().reference().child("user-messages").child(currentUSerUid).child(chatPartnerId)
         aboutToDeleteMessageLogref.removeValue { (error, ref) in
