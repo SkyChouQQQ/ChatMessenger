@@ -141,9 +141,35 @@ class MessageController: UITableViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "LogOut", style: .plain, target: self, action: #selector(handleLogOut))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: newMessageIconImage, style: .plain, target: self, action: #selector(handleNewMessage))
+        
+        tableView.allowsMultipleSelectionDuringEditing = true
 
         
 }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let message = messages[indexPath.row]
+        if let chatPartnerId = message.checkChatPartnerId() {
+            deleteFIRChatMessengesLogForChatPartnerUidFromCurrentUser(chatPartnerId)
+        }
+        
+        
+    }
+    
+    
+    private func deleteFIRChatMessengesLogForChatPartnerUidFromCurrentUser(_ chatPartnerId:String) {
+        guard let currentUSerUid = Auth.auth().currentUser?.uid else { return }
+        let aboutToDeleteMessageLogref = Database.database().reference().child("user-messages").child(currentUSerUid).child(chatPartnerId)
+        aboutToDeleteMessageLogref.removeValue { (error, ref) in
+            if error != nil {
+                print("delete messages log fails with error,", error as Any)
+            }
+        }
+    }
+    
     
     var reloadtableTimer:Timer?
     
@@ -158,6 +184,10 @@ class MessageController: UITableViewController {
                 let messageId = snapShot.key
                 self.fetchMessages(with: messageId)
             })
+        }
+        ref.observe(.childRemoved) { (snapShot) in
+            self.messageDictionary.removeValue(forKey: snapShot.key)
+            self.attempReloadTable()
         }
     }
     
