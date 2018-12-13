@@ -206,7 +206,7 @@ class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollec
         let imagePickerVC = UIImagePickerController()
         imagePickerVC.allowsEditing = true
         imagePickerVC.delegate = self
-        imagePickerVC.mediaTypes = [kUTTypeImage as String,kUTTypeMovie as String]
+        imagePickerVC.mediaTypes = [kUTTypeImage as String]
         present(imagePickerVC, animated: true, completion: nil)
     }
 
@@ -230,9 +230,18 @@ class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollec
             }
             
             videoRef.downloadURL(completion: { (url, error) in
-                guard let videoUrl = url?.absoluteString  else {return }
-                let values:[String : Any] = ["videoUrl":videoUrl]
-                self.sendMessageWithProperties(dictionary: values)
+                
+                guard let videoUrl = url  else {return }
+                let properties = ["videoUrl":videoUrl.absoluteString]
+                
+                let videoAsset = AVURLAsset(url: videoUrl)
+                self.sendMessageWithProperties(dictionary: properties)
+                if let thumbnailImage = videoAsset.videoThumbnail {
+                    let values:[String : Any] = ["imageWidth":thumbnailImage.size.width,"imageHeight":thumbnailImage.size.height,"videoUrl":videoUrl.absoluteString]
+                    self.sendMessageWithProperties(dictionary: values)
+                }
+                
+                
             })
             
         }
@@ -248,10 +257,7 @@ class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollec
         }
     }
     
-    private func getThumbnailImageWithVideoUrl(url:URL)->UIImage {
-        
-    }
-    
+
     private func handleImageSelectedForInfo(info:[UIImagePickerController.InfoKey : Any]) {
         var selectedImageFromPicker:UIImage?
         
@@ -285,10 +291,7 @@ class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollec
                         return
                     }
                     guard let imageUrlString = url?.absoluteString else {return }
-                    
                     self.sendMessageWithImageUrl(imageUrlString, image:image)
-                    
-                    
                 })
             })
         }
