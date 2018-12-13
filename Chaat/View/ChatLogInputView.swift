@@ -25,18 +25,35 @@ class ChatLogInputView:UIView,UITextFieldDelegate {
         return messageInputTextField
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-       
-        backgroundColor = .white
-     
-        
+    lazy var uploadPhotoImageView:UIImageView = {
         let uploadPhotoImageView = UIImageView()
         uploadPhotoImageView.image = UIImage(named: "upload_image_icon")
         uploadPhotoImageView.translatesAutoresizingMaskIntoConstraints = false
         uploadPhotoImageView.isUserInteractionEnabled = true
         uploadPhotoImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleUploadPhoto)))
-        
+        return uploadPhotoImageView
+    }()
+    
+    lazy var sendButton: UIButton = {
+        let sendButton = UIButton(type: .system)
+        sendButton.setTitle("Send", for: .normal)
+        sendButton.translatesAutoresizingMaskIntoConstraints = false
+        sendButton.addTarget(self, action: #selector(handleMessageSend), for: .touchUpInside)
+        return sendButton
+    }()
+    
+    let containerSeparatorView:UIView = {
+        let containerSeparatorView = UIView()
+        containerSeparatorView.backgroundColor = UIColor(r: 220, g: 220, b: 220)
+        containerSeparatorView.translatesAutoresizingMaskIntoConstraints = false
+        return containerSeparatorView
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+       
+        backgroundColor = .white
+     
        addSubview(uploadPhotoImageView)
         
         uploadPhotoImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 4).isActive = true
@@ -45,10 +62,7 @@ class ChatLogInputView:UIView,UITextFieldDelegate {
         uploadPhotoImageView.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
         
-        let sendButton = UIButton(type: .system)
-        sendButton.setTitle("Send", for: .normal)
-        sendButton.translatesAutoresizingMaskIntoConstraints = false
-        sendButton.addTarget(self, action: #selector(handleMessageSend), for: .touchUpInside)
+
         
         addSubview(sendButton)
         
@@ -64,9 +78,7 @@ class ChatLogInputView:UIView,UITextFieldDelegate {
         messageInputTextField.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         messageInputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
         
-        let containerSeparatorView = UIView()
-        containerSeparatorView.backgroundColor = UIColor(r: 220, g: 220, b: 220)
-        containerSeparatorView.translatesAutoresizingMaskIntoConstraints = false
+
         
         addSubview(containerSeparatorView)
         
