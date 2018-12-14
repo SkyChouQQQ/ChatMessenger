@@ -45,19 +45,21 @@ class LoginController: UIViewController {
     
     let loginRegisterButton:UIButton = {
        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 80, g: 101, b: 161)
+        button.backgroundColor = UIColor.rgb(r: 80, g: 101, b: 161)
         button.setTitle("Register", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
+        button.isEnabled = false
         return button
     }()
     
-    let nameInputTextField:UITextField = {
+    lazy var nameInputTextField:UITextField = {
        let tf = UITextField()
         tf.placeholder = "Name"
         tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.addTarget(self, action: #selector(handleInputValueChange), for: .editingChanged)
         return tf
     }()
     
@@ -68,11 +70,12 @@ class LoginController: UIViewController {
         return nv
     }()
     
-    let emailInputTextField:UITextField = {
+    lazy var emailInputTextField:UITextField = {
         let tf = UITextField()
         tf.placeholder = "Email address"
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.autocapitalizationType = .none
+        tf.addTarget(self, action: #selector(handleInputValueChange), for: .editingChanged)
         return tf
     }()
     
@@ -83,12 +86,13 @@ class LoginController: UIViewController {
         return nv
     }()
     
-    let passWordInputTextField:UITextField = {
+    lazy var passWordInputTextField:UITextField = {
         let tf = UITextField()
         tf.placeholder = "Password"
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.autocapitalizationType = .none
         tf.isSecureTextEntry = true
+        tf.addTarget(self, action: #selector(handleInputValueChange), for: .editingChanged)
         return tf
     }()
     
@@ -180,8 +184,22 @@ class LoginController: UIViewController {
         
     }
     
+    @objc func handleInputValueChange() {
+        let isRegisterInputFinish  = (emailInputTextField.text?.count ?? 0)>0 && (nameInputTextField.text?.count ?? 0)>0 && (passWordInputTextField.text?.count ?? 0)>5
+        let isLoginInputFinish = (emailInputTextField.text?.count ?? 0)>0 && (passWordInputTextField.text?.count ?? 0)>5
+        if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
+            loginRegisterButton.backgroundColor = isLoginInputFinish ? UIColor.rgb(r: 17, g: 154, b: 237) :UIColor.rgb(r: 80, g: 101, b: 161)
+            loginRegisterButton.isEnabled = isLoginInputFinish ? true : false
+        } else {
+            loginRegisterButton.backgroundColor = isRegisterInputFinish ? UIColor.rgb(r: 17, g: 154, b: 237) :UIColor.rgb(r: 80, g: 101, b: 161)
+            loginRegisterButton.isEnabled = isRegisterInputFinish ? true : false
+        }
+        
+    }
+    
     @objc func handleLoginRegisterSegmentedControlValueChange(){
         //change title of register button
+        handleInputValueChange()
         let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
             loginRegisterButton.setTitle(title, for: .normal)
         
