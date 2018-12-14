@@ -18,7 +18,7 @@ class LoginController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 5
         imageView.layer.masksToBounds = true
-        imageView.image = UIImage(named: "plus_photo")
+        imageView.image = UIImage(named: "plus_photo")?.withRenderingMode(.alwaysOriginal)
         imageView.contentMode = .scaleToFill
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSeletedProfileImageViewTapped)))
         imageView.isUserInteractionEnabled = true
@@ -124,9 +124,9 @@ class LoginController: UIViewController {
     
     private func setUpInputImageView(){
         inputProfileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputProfileImageView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -12).isActive = true
-        inputProfileImageView.widthAnchor.constraint(equalToConstant: 180).isActive = true
-        inputProfileImageView.heightAnchor.constraint(equalToConstant: 180).isActive = true
+        inputProfileImageView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -20).isActive = true
+        inputProfileImageView.widthAnchor.constraint(equalToConstant: 240).isActive = true
+        inputProfileImageView.heightAnchor.constraint(equalToConstant: 240).isActive = true
     }
     private func setUpLoginRegisterSegmentedControlView() {
         loginRegisterSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -137,7 +137,7 @@ class LoginController: UIViewController {
     
     private func setUpInputContainerView(){
         inputContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        inputContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant:80).isActive = true
         inputContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
         inputContainerViewHeightAnchor = inputContainerView.heightAnchor.constraint(equalToConstant: 150)
         inputContainerViewHeightAnchor?.isActive = true
