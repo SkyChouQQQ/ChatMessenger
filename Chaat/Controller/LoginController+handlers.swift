@@ -14,10 +14,9 @@ extension LoginController:UIImagePickerControllerDelegate,UINavigationController
     
     func handleRegister(){
         
-        guard let email = emailInputTextField.text, let password = passWordInputTextField.text, let name = nameInputTextField.text else {
-            print("Form of Input is not correct")
-            return
-        }
+        guard let email = emailInputTextField.text, email.count>0 else {return }
+        guard let password = passWordInputTextField.text,password.count>0 else {return }
+        guard let name = nameInputTextField.text, name.count>0 else {return }
         
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if error != nil {

@@ -39,6 +39,7 @@
 		844851D721B81DD8008DD6DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		844851DE21B825FB008DD6DB /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		844938B921C24CE70018F9B8 /* ChatLogInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogInputView.swift; sourceTree = "<group>"; };
+		844938BB21C265DD0018F9B8 /* Chaat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chaat.entitlements; sourceTree = "<group>"; };
 		8449B93021BA5A8200C0B6A8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8449B93221BA8EF300C0B6A8 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		844B9B4721BD015F00899661 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
@@ -92,6 +93,7 @@
 		844851CA21B81DD3008DD6DB /* Chaat */ = {
 			isa = PBXGroup;
 			children = (
+				844938BB21C265DD0018F9B8 /* Chaat.entitlements */,
 				844938B821C24C530018F9B8 /* View */,
 				8449B92F21BA5A3400C0B6A8 /* Helpers */,
 				844C0EE021B9727900810664 /* Supporting Files */,
@@ -203,6 +205,11 @@
 				TargetAttributes = {
 					844851C721B81DD3008DD6DB = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -449,6 +456,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 74UJ8W7VYK;
 				INFOPLIST_FILE = Chaat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -468,6 +476,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 74UJ8W7VYK;
 				INFOPLIST_FILE = Chaat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

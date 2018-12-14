@@ -61,9 +61,6 @@ class ChatLogInputView:UIView,UITextFieldDelegate {
         uploadPhotoImageView.widthAnchor.constraint(equalToConstant: 44).isActive = true
         uploadPhotoImageView.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
-        
-
-        
         addSubview(sendButton)
         
         sendButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -25).isActive = true
@@ -77,8 +74,6 @@ class ChatLogInputView:UIView,UITextFieldDelegate {
         messageInputTextField.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
         messageInputTextField.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         messageInputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
-        
-
         
         addSubview(containerSeparatorView)
         
