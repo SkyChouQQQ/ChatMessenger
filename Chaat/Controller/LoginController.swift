@@ -18,7 +18,7 @@ class LoginController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 5
         imageView.layer.masksToBounds = true
-        imageView.image = UIImage(named: "gameofthrones_splash")
+        imageView.image = UIImage(named: "plus_photo")
         imageView.contentMode = .scaleToFill
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSeletedProfileImageViewTapped)))
         imageView.isUserInteractionEnabled = true
@@ -45,13 +45,15 @@ class LoginController: UIViewController {
     
     let loginRegisterButton:UIButton = {
        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.rgb(r: 80, g: 101, b: 161)
+        button.backgroundColor = UIColor.rgb(r: 149, g: 204, b: 244)
         button.setTitle("Register", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
         button.isEnabled = false
+        button.layer.cornerRadius = 5
+        button.layer.masksToBounds = true
         return button
     }()
     
@@ -188,10 +190,10 @@ class LoginController: UIViewController {
         let isRegisterInputFinish  = (emailInputTextField.text?.count ?? 0)>0 && (nameInputTextField.text?.count ?? 0)>0 && (passWordInputTextField.text?.count ?? 0)>5
         let isLoginInputFinish = (emailInputTextField.text?.count ?? 0)>0 && (passWordInputTextField.text?.count ?? 0)>5
         if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
-            loginRegisterButton.backgroundColor = isLoginInputFinish ? UIColor.rgb(r: 17, g: 154, b: 237) :UIColor.rgb(r: 80, g: 101, b: 161)
+            loginRegisterButton.backgroundColor = isLoginInputFinish ? UIColor.rgb(r: 80, g: 101, b: 161) :UIColor.rgb(r: 149, g: 204, b: 244)
             loginRegisterButton.isEnabled = isLoginInputFinish ? true : false
         } else {
-            loginRegisterButton.backgroundColor = isRegisterInputFinish ? UIColor.rgb(r: 17, g: 154, b: 237) :UIColor.rgb(r: 80, g: 101, b: 161)
+            loginRegisterButton.backgroundColor = isRegisterInputFinish ? UIColor.rgb(r: 80, g: 101, b: 161) :UIColor.rgb(r: 149, g: 204, b: 244)
             loginRegisterButton.isEnabled = isRegisterInputFinish ? true : false
         }
         
