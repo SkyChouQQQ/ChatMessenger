@@ -24,6 +24,7 @@
 		844C0EDC21B9605300810664 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C0EDB21B9605300810664 /* UserCell.swift */; };
 		844C0EDF21B9723200810664 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C0EDE21B9723200810664 /* User.swift */; };
 		844C0EE221B99FFE00810664 /* LoginController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C0EE121B99FFE00810664 /* LoginController+handlers.swift */; };
+		84A07B3D2205942B00EC3971 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A07B3C2205942B00EC3971 /* MainTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		844C0EDB21B9605300810664 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		844C0EDE21B9723200810664 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		844C0EE121B99FFE00810664 /* LoginController+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+handlers.swift"; sourceTree = "<group>"; };
+		84A07B3C2205942B00EC3971 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		F3D9048B0FEC159E1236941F /* Pods_Chaat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chaat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -114,6 +116,7 @@
 				844C0ED821B954AD00810664 /* NewMessageController.swift */,
 				844C0EE121B99FFE00810664 /* LoginController+handlers.swift */,
 				8449B93221BA8EF300C0B6A8 /* ChatLogController.swift */,
+				84A07B3C2205942B00EC3971 /* MainTabBarController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -209,6 +212,9 @@
 							com.apple.Keychain = {
 								enabled = 0;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -302,6 +308,7 @@
 				8449B93121BA5A8200C0B6A8 /* Extensions.swift in Sources */,
 				844C0EDC21B9605300810664 /* UserCell.swift in Sources */,
 				844938BA21C24CE70018F9B8 /* ChatLogInputView.swift in Sources */,
+				84A07B3D2205942B00EC3971 /* MainTabBarController.swift in Sources */,
 				844C0EE221B99FFE00810664 /* LoginController+handlers.swift in Sources */,
 				844B9B4821BD015F00899661 /* ChatMessageCell.swift in Sources */,
 				8448386721BBC9E10057DE5B /* Message.swift in Sources */,
@@ -453,6 +460,7 @@
 			baseConfigurationReference = 3A49B306F1CC177800FE2D22 /* Pods-Chaat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Chaat/Chaat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 74UJ8W7VYK;
 				INFOPLIST_FILE = Chaat/Info.plist;
@@ -473,6 +481,7 @@
 			baseConfigurationReference = 2ECABFDBA9DAFCB0F117FF38 /* Pods-Chaat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Chaat/Chaat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 74UJ8W7VYK;
 				INFOPLIST_FILE = Chaat/Info.plist;
