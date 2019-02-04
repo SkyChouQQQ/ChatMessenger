@@ -15,14 +15,14 @@ class MainTabBarController:UITabBarController,UITabBarControllerDelegate {
         
         let friendsNavVC = templateNavVC(unselectedImage: UIImage(named: "home_unselected")!, selectedImage: UIImage(named: "home_selected")!, rootVC: UIViewController())
         
-        let messagesNavVC = templateNavVC(unselectedImage: UIImage(named: "search_unselected")!, selectedImage: UIImage(named: "search_selected")!,rootVC: MessageController())
+        let messagesNavVC = templateNavVC(unselectedImage: UIImage(named: "profile_unselected")!, selectedImage: UIImage(named: "profile_selected")!,rootVC:MessageController())
         
-        let userProfileNavVC = templateNavVC(unselectedImage: UIImage(named: "home_unselected")!, selectedImage: UIImage(named: "home_selected")!, rootVC: UIViewController())
+//        let userProfileNavVC = templateNavVC(unselectedImage: UIImage(named: "home_unselected")!, selectedImage: UIImage(named: "home_selected")!, rootVC: UIViewController())
         
         
         tabBar.tintColor = .black
         
-        viewControllers = [friendsNavVC,messagesNavVC,userProfileNavVC]
+        viewControllers = [friendsNavVC,messagesNavVC]
         
         //modify tab bar item insets
         guard let tabBarItems = tabBar.items else {return }
@@ -55,7 +55,7 @@ class MainTabBarController:UITabBarController,UITabBarControllerDelegate {
     
 
     
-    func templateNavVC(unselectedImage:UIImage,selectedImage:UIImage,rootVC:UIViewController = UIViewController())->UINavigationController {
+    func templateNavVC(unselectedImage:UIImage,selectedImage:UIImage,rootVC:UIViewController)->UINavigationController {
         let viewController = rootVC
         let navViewController = UINavigationController(rootViewController: viewController)
         
@@ -67,17 +67,7 @@ class MainTabBarController:UITabBarController,UITabBarControllerDelegate {
     //MARK:- tab bar VC delegate method
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-//        let selectedIndex = viewControllers?.index(of:viewController)
-        
-//        if selectedIndex == 2{
-//
-//            let layout = UICollectionViewFlowLayout()
-//            let photoSelectorController = PhotoSelectorController(collectionViewLayout:layout)
-//            let photoSelectorNavController = UINavigationController(rootViewController: photoSelectorController)
-//            present(photoSelectorNavController, animated: true, completion: nil)
-//            return false
-//        }
-        
+
         return true
     }
     
