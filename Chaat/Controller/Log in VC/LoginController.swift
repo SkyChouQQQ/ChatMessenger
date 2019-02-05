@@ -44,7 +44,7 @@ class LoginController: UIViewController {
     
     let loginRegisterButton:UIButton = {
        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.rgb(r: 149, g: 204, b: 244)
+        button.backgroundColor = UIColor.disableRegisterButtonColor()
         button.setTitle("Register", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
@@ -189,10 +189,10 @@ class LoginController: UIViewController {
         let isRegisterInputFinish  = (emailInputTextField.text?.count ?? 0)>0 && (nameInputTextField.text?.count ?? 0)>0 && (passWordInputTextField.text?.count ?? 0)>5
         let isLoginInputFinish = (emailInputTextField.text?.count ?? 0)>0 && (passWordInputTextField.text?.count ?? 0)>5
         if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
-            loginRegisterButton.backgroundColor = isLoginInputFinish ? UIColor.rgb(r: 80, g: 101, b: 161) :UIColor.rgb(r: 149, g: 204, b: 244)
+            loginRegisterButton.backgroundColor = isLoginInputFinish ? UIColor.enableRegisterButtonColor() :UIColor.disableRegisterButtonColor()
             loginRegisterButton.isEnabled = isLoginInputFinish ? true : false
         } else {
-            loginRegisterButton.backgroundColor = isRegisterInputFinish ? UIColor.rgb(r: 80, g: 101, b: 161) :UIColor.rgb(r: 149, g: 204, b: 244)
+            loginRegisterButton.backgroundColor = isRegisterInputFinish ? UIColor.enableRegisterButtonColor():UIColor.disableRegisterButtonColor()
             loginRegisterButton.isEnabled = isRegisterInputFinish ? true : false
         }
         

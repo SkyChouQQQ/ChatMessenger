@@ -37,6 +37,7 @@ class MessageController: UITableViewController {
     }
     
     func fetchUserAndSetUpNavBar() {
+        applyTheme(withTheme: .Dark)
         guard let uid = Auth.auth().currentUser?.uid else {return }
         Database.database().reference().child("users").child(uid).observe(.value){ (dataSnapShot) in
             if let dictionary = dataSnapShot.value as? [String:Any] {
@@ -91,6 +92,7 @@ class MessageController: UITableViewController {
             label.translatesAutoresizingMaskIntoConstraints = false
             label.text = user.name
             label.font = UIFont.boldSystemFont(ofSize: 16)
+            label.textColor = UIColor.white
             return label
         }()
         

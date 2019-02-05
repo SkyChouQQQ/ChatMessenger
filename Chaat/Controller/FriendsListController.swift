@@ -17,8 +17,8 @@ class FriendsListController:UITableViewController  {
     let headerId = "headerId"
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyTheme(withTheme: .Dark)
         view.backgroundColor = .cyan
-        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         
        fetchUser()

@@ -86,6 +86,14 @@ extension UIColor {
         return UIColor.rgb(r: 60, g: 81, b: 108)
     }
     
+    static func enableRegisterButtonColor()->UIColor {
+        return UIColor.rgb(r: 80, g: 101, b: 161)
+    }
+    
+    static func disableRegisterButtonColor()->UIColor {
+        return UIColor.rgb(r: 96, g: 199, b: 199)
+    }
+    
 }
 
 
