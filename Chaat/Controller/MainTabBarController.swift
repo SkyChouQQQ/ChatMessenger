@@ -13,7 +13,7 @@ class MainTabBarController:UITabBarController,UITabBarControllerDelegate {
     
     fileprivate func setUpViewController() {
         
-        let friendsNavVC = templateNavVC(unselectedImage: UIImage(named: "home_unselected")!, selectedImage: UIImage(named: "home_selected")!, rootVC: UIViewController())
+        let friendsNavVC = templateNavVC(unselectedImage: UIImage(named: "home_unselected")!, selectedImage: UIImage(named: "home_selected")!, rootVC: FriendsListController())
         
         let messagesNavVC = templateNavVC(unselectedImage: UIImage(named: "profile_unselected")!, selectedImage: UIImage(named: "profile_selected")!,rootVC:MessageController())
         

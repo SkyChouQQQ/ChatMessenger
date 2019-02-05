@@ -33,10 +33,8 @@ class NewMessageController: UITableViewController {
     func fetchUser(){
         Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
             if let dictionary = snapshot.value as? [String:AnyObject] {
-                let user = User()
-                user.id = snapshot.key
+                let user = User(id: snapshot.key, dic: dictionary)
                 if user.id != Auth.auth().currentUser?.uid {
-                    user.setValuesForKeys(dictionary)
                     self.users.append(user)
                 }
  

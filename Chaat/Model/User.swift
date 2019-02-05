@@ -14,4 +14,10 @@ class User:NSObject {
     var name:String?
     var email:String?
     var profileImageUrl:String?
+    
+    init(id:String,dic:[String:Any]) {
+        self.id = id
+        self.name = dic["name"] as? String ?? ""
+        self.profileImageUrl = dic["profileImageUrl"] as? String ?? ""
+    }
 }

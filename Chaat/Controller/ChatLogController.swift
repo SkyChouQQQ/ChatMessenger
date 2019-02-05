@@ -82,8 +82,16 @@ class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollec
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
         unSubscribeToKeyboardNotifications()
     }
     
@@ -444,4 +452,6 @@ class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollec
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
+    
 }

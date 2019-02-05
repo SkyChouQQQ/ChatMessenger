@@ -54,7 +54,7 @@ extension LoginController:UIImagePickerControllerDelegate,UINavigationController
     }
     
     private func registerUerIntoDatabaseWithUid(uid:String, values:[String:Any]) {
-        let user = User()
+        let user = User(id: uid, dic: values)
         user.setValuesForKeys(values)
         let reference = Database.database().reference()
         let childReference = reference.child("users").child(uid)
@@ -65,8 +65,10 @@ extension LoginController:UIImagePickerControllerDelegate,UINavigationController
             }
             
             print("Save User Successfully into firebase DB")
-            
+            self.messageVC?.fetchUserAndSetUpNavBar()
             self.dismiss(animated: true, completion: nil)
+            
+            
         })
     }
     

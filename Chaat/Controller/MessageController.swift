@@ -41,7 +41,7 @@ class MessageController: UITableViewController {
         guard let uid = Auth.auth().currentUser?.uid else {return }
         Database.database().reference().child("users").child(uid).observe(.value){ (dataSnapShot) in
             if let dictionary = dataSnapShot.value as? [String:Any] {
-                let user = User()
+                let user = User(id: uid, dic: dictionary)
                 user.setValuesForKeys(dictionary)
                 self.setUpNaviBarWithUser(user: user)
             }
@@ -252,9 +252,7 @@ class MessageController: UITableViewController {
         let chatPartnerRef = Database.database().reference().child("users").child(chatPartnerId)
         chatPartnerRef.observeSingleEvent(of: .value) { (snapShot) in
             if let dic = snapShot.value as? [String:Any] {
-                let user = User()
-                user.id = chatPartnerId
-                user.setValuesForKeys(dic)
+                let user = User(id: chatPartnerId, dic: dic)
                 self.showChatLogControllerWithUser(user)
             }
         }

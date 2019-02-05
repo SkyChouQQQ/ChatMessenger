@@ -18,12 +18,14 @@
 		844938BA21C24CE70018F9B8 /* ChatLogInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844938B921C24CE70018F9B8 /* ChatLogInputView.swift */; };
 		8449B93121BA5A8200C0B6A8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8449B93021BA5A8200C0B6A8 /* Extensions.swift */; };
 		8449B93321BA8EF300C0B6A8 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8449B93221BA8EF300C0B6A8 /* ChatLogController.swift */; };
+		844A9E5D22094AA300B9B24D /* FirebaseUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A9E5C22094AA300B9B24D /* FirebaseUtilities.swift */; };
 		844B9B4821BD015F00899661 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844B9B4721BD015F00899661 /* ChatMessageCell.swift */; };
 		844C0ED721B8EC1F00810664 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 844C0ED621B8EC1F00810664 /* GoogleService-Info.plist */; };
 		844C0ED921B954AD00810664 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C0ED821B954AD00810664 /* NewMessageController.swift */; };
 		844C0EDC21B9605300810664 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C0EDB21B9605300810664 /* UserCell.swift */; };
 		844C0EDF21B9723200810664 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C0EDE21B9723200810664 /* User.swift */; };
 		844C0EE221B99FFE00810664 /* LoginController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C0EE121B99FFE00810664 /* LoginController+handlers.swift */; };
+		8453973D22090D59009EF14C /* FriendsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8453973C22090D59009EF14C /* FriendsListController.swift */; };
 		84A07B3D2205942B00EC3971 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A07B3C2205942B00EC3971 /* MainTabBarController.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,12 +45,14 @@
 		844938BB21C265DD0018F9B8 /* Chaat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chaat.entitlements; sourceTree = "<group>"; };
 		8449B93021BA5A8200C0B6A8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8449B93221BA8EF300C0B6A8 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
+		844A9E5C22094AA300B9B24D /* FirebaseUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtilities.swift; sourceTree = "<group>"; };
 		844B9B4721BD015F00899661 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		844C0ED621B8EC1F00810664 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		844C0ED821B954AD00810664 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
 		844C0EDB21B9605300810664 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		844C0EDE21B9723200810664 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		844C0EE121B99FFE00810664 /* LoginController+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+handlers.swift"; sourceTree = "<group>"; };
+		8453973C22090D59009EF14C /* FriendsListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListController.swift; sourceTree = "<group>"; };
 		84A07B3C2205942B00EC3971 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		F3D9048B0FEC159E1236941F /* Pods_Chaat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chaat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -104,6 +108,7 @@
 				844851DD21B825D2008DD6DB /* Controller */,
 				844C0ED621B8EC1F00810664 /* GoogleService-Info.plist */,
 				844851D721B81DD8008DD6DB /* Info.plist */,
+				844A9E5C22094AA300B9B24D /* FirebaseUtilities.swift */,
 			);
 			path = Chaat;
 			sourceTree = "<group>";
@@ -111,12 +116,12 @@
 		844851DD21B825D2008DD6DB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8453973B22090D02009EF14C /* Log in VC */,
 				844851CD21B81DD3008DD6DB /* MessageController.swift */,
-				844851DE21B825FB008DD6DB /* LoginController.swift */,
 				844C0ED821B954AD00810664 /* NewMessageController.swift */,
-				844C0EE121B99FFE00810664 /* LoginController+handlers.swift */,
 				8449B93221BA8EF300C0B6A8 /* ChatLogController.swift */,
 				84A07B3C2205942B00EC3971 /* MainTabBarController.swift */,
+				8453973C22090D59009EF14C /* FriendsListController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -164,6 +169,15 @@
 				844851CF21B81DD3008DD6DB /* Main.storyboard */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8453973B22090D02009EF14C /* Log in VC */ = {
+			isa = PBXGroup;
+			children = (
+				844C0EE121B99FFE00810664 /* LoginController+handlers.swift */,
+				844851DE21B825FB008DD6DB /* LoginController.swift */,
+			);
+			path = "Log in VC";
 			sourceTree = "<group>";
 		};
 		F6745D06D9B321F6A6D7A9AC /* Frameworks */ = {
@@ -311,7 +325,9 @@
 				84A07B3D2205942B00EC3971 /* MainTabBarController.swift in Sources */,
 				844C0EE221B99FFE00810664 /* LoginController+handlers.swift in Sources */,
 				844B9B4821BD015F00899661 /* ChatMessageCell.swift in Sources */,
+				844A9E5D22094AA300B9B24D /* FirebaseUtilities.swift in Sources */,
 				8448386721BBC9E10057DE5B /* Message.swift in Sources */,
+				8453973D22090D59009EF14C /* FriendsListController.swift in Sources */,
 				844851DF21B825FB008DD6DB /* LoginController.swift in Sources */,
 				844851CC21B81DD3008DD6DB /* AppDelegate.swift in Sources */,
 			);
