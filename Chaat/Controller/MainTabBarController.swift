@@ -11,14 +11,19 @@ import Firebase
 
 class MainTabBarController:UITabBarController,UITabBarControllerDelegate {
     
-    fileprivate func setUpViewController() {
+        func setUpViewController() {
         
         let friendsNavVC = templateNavVC(unselectedImage: UIImage(named: "home_unselected")!, selectedImage: UIImage(named: "home_selected")!, rootVC: FriendsListController())
         
         let messagesNavVC = templateNavVC(unselectedImage: UIImage(named: "profile_unselected")!, selectedImage: UIImage(named: "profile_selected")!,rootVC:MessageController())
         
+        
 //        let userProfileNavVC = templateNavVC(unselectedImage: UIImage(named: "home_unselected")!, selectedImage: UIImage(named: "home_selected")!, rootVC: UIViewController())
         
+        
+        if let messageVC = messagesNavVC.rootViewController as? MessageController {
+            messageVC.fetchUserAndSetUpNavBar()
+        }
         
         tabBar.tintColor = .black
         
@@ -40,11 +45,10 @@ class MainTabBarController:UITabBarController,UITabBarControllerDelegate {
         self.delegate = self
         
         if Auth.auth().currentUser == nil {
-//            DispatchQueue.main.async {
-//                let signupController = SignUpViewController()
-//                let navigationController = UINavigationController(rootViewController: signupController)
-//                self.present(navigationController, animated: true, completion: nil)
-//            }
+            DispatchQueue.main.async {
+                let loginVC = LoginController()
+                self.present(loginVC, animated: true, completion: nil)
+            }
             
             return
         }

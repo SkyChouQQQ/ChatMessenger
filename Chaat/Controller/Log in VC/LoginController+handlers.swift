@@ -65,10 +65,9 @@ extension LoginController:UIImagePickerControllerDelegate,UINavigationController
             }
             
             print("Save User Successfully into firebase DB")
-            self.messageVC?.fetchUserAndSetUpNavBar()
-            self.dismiss(animated: true, completion: nil)
-            
-            
+            self.showMainTabBarVCAfterLogin()
+           
+        
         })
     }
     
@@ -83,11 +82,15 @@ extension LoginController:UIImagePickerControllerDelegate,UINavigationController
                 return
             }
             print("user successfully sign in")
-            self.messageVC?.fetchUserAndSetUpNavBar()
-            self.dismiss(animated: true, completion: nil)
-
-
+            self.showMainTabBarVCAfterLogin()
+          
         }
+    }
+    
+    fileprivate func showMainTabBarVCAfterLogin() {
+        guard let maintabBarVC = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController else {return }
+        maintabBarVC.setUpViewController()
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func handleSeletedProfileImageViewTapped() {

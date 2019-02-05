@@ -99,6 +99,7 @@
 		844851CA21B81DD3008DD6DB /* Chaat */ = {
 			isa = PBXGroup;
 			children = (
+				844A9E5F220996F900B9B24D /* Utilities */,
 				844938BB21C265DD0018F9B8 /* Chaat.entitlements */,
 				844938B821C24C530018F9B8 /* View */,
 				8449B92F21BA5A3400C0B6A8 /* Helpers */,
@@ -108,7 +109,6 @@
 				844851DD21B825D2008DD6DB /* Controller */,
 				844C0ED621B8EC1F00810664 /* GoogleService-Info.plist */,
 				844851D721B81DD8008DD6DB /* Info.plist */,
-				844A9E5C22094AA300B9B24D /* FirebaseUtilities.swift */,
 			);
 			path = Chaat;
 			sourceTree = "<group>";
@@ -140,6 +140,14 @@
 				8449B93021BA5A8200C0B6A8 /* Extensions.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		844A9E5F220996F900B9B24D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				844A9E5C22094AA300B9B24D /* FirebaseUtilities.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		844C0EDA21B9602300810664 /* Cells */ = {

@@ -25,7 +25,6 @@ class MessageController: UITableViewController {
         
         print("user is logOut")
         let loginController = LoginController()
-        loginController.messageVC = self
         present(loginController, animated: true, completion: nil)
     }
     

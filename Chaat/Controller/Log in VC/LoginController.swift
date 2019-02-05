@@ -11,8 +11,7 @@ import Firebase
 
 class LoginController: UIViewController {
     
-    var messageVC:MessageController?
-    
+        
     lazy var inputProfileImageView:UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -101,7 +100,7 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(r: 61, g: 91, b: 151)
+        view.backgroundColor = UIColor.ChaatBlue()
         
         view.addSubview(inputProfileImageView)
         view.addSubview(loginRegisterSegmentedControl)
@@ -236,10 +235,3 @@ class LoginController: UIViewController {
 }
     
 
-
-extension UIColor {
-    
-    convenience init(r:CGFloat, g:CGFloat, b:CGFloat) {
-        self.init(red: r/255, green: g/255, blue: b/255, alpha: 1)
-    }
-}
