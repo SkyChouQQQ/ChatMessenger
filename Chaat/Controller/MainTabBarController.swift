@@ -13,21 +13,23 @@ class MainTabBarController:UITabBarController,UITabBarControllerDelegate {
     
         func setUpViewController() {
         
-        let friendsNavVC = templateNavVC(unselectedImage: UIImage(named: "home_unselected")!, selectedImage: UIImage(named: "home_selected")!, rootVC: FriendsListController())
-        
-        let messagesNavVC = templateNavVC(unselectedImage: UIImage(named: "profile_unselected")!, selectedImage: UIImage(named: "profile_selected")!,rootVC:MessageController())
-        
-        
-//        let userProfileNavVC = templateNavVC(unselectedImage: UIImage(named: "home_unselected")!, selectedImage: UIImage(named: "home_selected")!, rootVC: UIViewController())
-        
-        
-        if let messageVC = messagesNavVC.rootViewController as? MessageController {
-            messageVC.fetchUserAndSetUpNavBar()
-        }
-        
-        tabBar.tintColor = .black
-        
-        viewControllers = [friendsNavVC,messagesNavVC]
+            let friendsNavVC = templateNavVC(unselectedImage: UIImage(named: "friends_unselected")!, selectedImage: UIImage(named: "friends_selected")!, rootVC: FriendsListController())
+            
+            let messagesNavVC = templateNavVC(unselectedImage: UIImage(named: "chat_unselected")!, selectedImage: UIImage(named: "chat_selected")!,rootVC:MessageController())
+            
+            let newsFeedNvVC = templateNavVC(unselectedImage: UIImage(named: "home_unselected")!, selectedImage: UIImage(named: "home_selected")!,rootVC:UIViewController())
+            
+            
+            let userProfileNavVC = templateNavVC(unselectedImage: UIImage(named: "profile_unselected")!, selectedImage: UIImage(named: "profile_selected")!, rootVC: UIViewController())
+            
+            
+            if let messageVC = messagesNavVC.rootViewController as? MessageController {
+                messageVC.fetchUserAndSetUpNavBar()
+            }
+            
+            tabBar.tintColor = .black
+            
+        viewControllers = [friendsNavVC,messagesNavVC,newsFeedNvVC,userProfileNavVC]
         
         //modify tab bar item insets
         guard let tabBarItems = tabBar.items else {return }
@@ -43,7 +45,7 @@ class MainTabBarController:UITabBarController,UITabBarControllerDelegate {
         super.viewDidLoad()
         
         self.delegate = self
-        
+
         if Auth.auth().currentUser == nil {
             DispatchQueue.main.async {
                 let loginVC = LoginController()
