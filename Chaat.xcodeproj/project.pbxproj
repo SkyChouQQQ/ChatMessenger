@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		24057D62A4681B5D1E6D5416 /* Pods_Chaat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D9048B0FEC159E1236941F /* Pods_Chaat.framework */; };
+		8446DD39220B2F6B00A6A8CE /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446DD38220B2F6B00A6A8CE /* Post.swift */; };
+		8446DD3B220B2F8800A6A8CE /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446DD3A220B2F8800A6A8CE /* Comment.swift */; };
 		8448386721BBC9E10057DE5B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8448386621BBC9E10057DE5B /* Message.swift */; };
 		844851CC21B81DD3008DD6DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844851CB21B81DD3008DD6DB /* AppDelegate.swift */; };
 		844851CE21B81DD3008DD6DB /* MessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844851CD21B81DD3008DD6DB /* MessageController.swift */; };
@@ -33,6 +35,8 @@
 /* Begin PBXFileReference section */
 		2ECABFDBA9DAFCB0F117FF38 /* Pods-Chaat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chaat.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chaat/Pods-Chaat.release.xcconfig"; sourceTree = "<group>"; };
 		3A49B306F1CC177800FE2D22 /* Pods-Chaat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chaat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chaat/Pods-Chaat.debug.xcconfig"; sourceTree = "<group>"; };
+		8446DD38220B2F6B00A6A8CE /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		8446DD3A220B2F8800A6A8CE /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		8448386621BBC9E10057DE5B /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		844851C821B81DD3008DD6DB /* Chaat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chaat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		844851CB21B81DD3008DD6DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 			children = (
 				844C0EDE21B9723200810664 /* User.swift */,
 				8448386621BBC9E10057DE5B /* Message.swift */,
+				8446DD38220B2F6B00A6A8CE /* Post.swift */,
+				8446DD3A220B2F8800A6A8CE /* Comment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -330,8 +336,10 @@
 				844C0ED921B954AD00810664 /* NewMessageController.swift in Sources */,
 				844A9E612209AAC200B9B24D /* ViewController+theme.swift in Sources */,
 				844851CE21B81DD3008DD6DB /* MessageController.swift in Sources */,
+				8446DD39220B2F6B00A6A8CE /* Post.swift in Sources */,
 				844C0EDF21B9723200810664 /* User.swift in Sources */,
 				8449B93121BA5A8200C0B6A8 /* Extensions.swift in Sources */,
+				8446DD3B220B2F8800A6A8CE /* Comment.swift in Sources */,
 				844C0EDC21B9605300810664 /* UserCell.swift in Sources */,
 				844938BA21C24CE70018F9B8 /* ChatLogInputView.swift in Sources */,
 				84A07B3D2205942B00EC3971 /* MainTabBarController.swift in Sources */,
