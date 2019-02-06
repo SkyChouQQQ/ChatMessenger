@@ -6,4 +6,11 @@
 //  Copyright © 2019 Sky. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class UserProfileController:UICollectionViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        collectionView.backgroundColor = .cyan
+    }
+}

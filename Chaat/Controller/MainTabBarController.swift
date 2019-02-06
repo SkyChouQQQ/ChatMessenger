@@ -17,10 +17,13 @@ class MainTabBarController:UITabBarController,UITabBarControllerDelegate {
             
             let messagesNavVC = templateNavVC(unselectedImage: UIImage(named: "chat_unselected")!, selectedImage: UIImage(named: "chat_selected")!,rootVC:MessageController())
             
-            let newsFeedNvVC = templateNavVC(unselectedImage: UIImage(named: "home_unselected")!, selectedImage: UIImage(named: "home_selected")!,rootVC:UIViewController())
+            let newsFeedLayout = UICollectionViewFlowLayout()
+            let newsFeedVC = NewsFeedController(collectionViewLayout:newsFeedLayout)
+            let newsFeedNvVC = templateNavVC(unselectedImage: UIImage(named: "home_unselected")!, selectedImage: UIImage(named: "home_selected")!,rootVC:newsFeedVC)
             
-            
-            let userProfileNavVC = templateNavVC(unselectedImage: UIImage(named: "profile_unselected")!, selectedImage: UIImage(named: "profile_selected")!, rootVC: UIViewController())
+            let userProfileLayout = UICollectionViewFlowLayout()
+            let userProfileVC = UserProfileController(collectionViewLayout:userProfileLayout)
+            let userProfileNavVC = templateNavVC(unselectedImage: UIImage(named: "profile_unselected")!, selectedImage: UIImage(named: "profile_selected")!, rootVC: userProfileVC)
             
             
             if let messageVC = messagesNavVC.rootViewController as? MessageController {
