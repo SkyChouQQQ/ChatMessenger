@@ -24,6 +24,21 @@
 		8449B93321BA8EF300C0B6A8 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8449B93221BA8EF300C0B6A8 /* ChatLogController.swift */; };
 		844A9E5D22094AA300B9B24D /* FirebaseUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A9E5C22094AA300B9B24D /* FirebaseUtilities.swift */; };
 		844A9E612209AAC200B9B24D /* ViewController+theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A9E602209AAC200B9B24D /* ViewController+theme.swift */; };
+		844AAC332212596000BA1237 /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC322212596000BA1237 /* UserProfileHeader.swift */; };
+		844AAC3922126C6300BA1237 /* PhotoSelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC3822126C6300BA1237 /* PhotoSelectorCell.swift */; };
+		844AAC3B22126C8800BA1237 /* PhotoSelectorHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC3A22126C8800BA1237 /* PhotoSelectorHeader.swift */; };
+		844AAC3D22126CAA00BA1237 /* UserProfilePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC3C22126CAA00BA1237 /* UserProfilePhotoCell.swift */; };
+		844AAC3F22126CEC00BA1237 /* NewsFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC3E22126CEC00BA1237 /* NewsFeedCell.swift */; };
+		844AAC4122126E0900BA1237 /* PreviewPhotoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC4022126E0900BA1237 /* PreviewPhotoContainerView.swift */; };
+		844AAC4322126E2C00BA1237 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC4222126E2C00BA1237 /* CommentCell.swift */; };
+		844AAC4522126F6C00BA1237 /* CommentInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC4422126F6C00BA1237 /* CommentInputAccessoryView.swift */; };
+		844AAC4722126F9500BA1237 /* CommentInputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC4622126F9500BA1237 /* CommentInputTextView.swift */; };
+		844AAC4922126FCF00BA1237 /* SharePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC4822126FCF00BA1237 /* SharePhotoController.swift */; };
+		844AAC4B2212700300BA1237 /* PhotoSelectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC4A2212700300BA1237 /* PhotoSelectorController.swift */; };
+		844AAC4D2212703900BA1237 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC4C2212703900BA1237 /* CameraController.swift */; };
+		844AAC4F2212708800BA1237 /* CommentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC4E2212708800BA1237 /* CommentsController.swift */; };
+		844AAC51221270AE00BA1237 /* ToLeftAnimationPresentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC50221270AE00BA1237 /* ToLeftAnimationPresentor.swift */; };
+		844AAC53221270C200BA1237 /* ToRightAnimationPresentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC52221270C200BA1237 /* ToRightAnimationPresentor.swift */; };
 		844B9B4821BD015F00899661 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844B9B4721BD015F00899661 /* ChatMessageCell.swift */; };
 		844C0ED721B8EC1F00810664 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 844C0ED621B8EC1F00810664 /* GoogleService-Info.plist */; };
 		844C0ED921B954AD00810664 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C0ED821B954AD00810664 /* NewMessageController.swift */; };
@@ -56,6 +71,21 @@
 		8449B93221BA8EF300C0B6A8 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		844A9E5C22094AA300B9B24D /* FirebaseUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtilities.swift; sourceTree = "<group>"; };
 		844A9E602209AAC200B9B24D /* ViewController+theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+theme.swift"; sourceTree = "<group>"; };
+		844AAC322212596000BA1237 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
+		844AAC3822126C6300BA1237 /* PhotoSelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorCell.swift; sourceTree = "<group>"; };
+		844AAC3A22126C8800BA1237 /* PhotoSelectorHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorHeader.swift; sourceTree = "<group>"; };
+		844AAC3C22126CAA00BA1237 /* UserProfilePhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePhotoCell.swift; sourceTree = "<group>"; };
+		844AAC3E22126CEC00BA1237 /* NewsFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedCell.swift; sourceTree = "<group>"; };
+		844AAC4022126E0900BA1237 /* PreviewPhotoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPhotoContainerView.swift; sourceTree = "<group>"; };
+		844AAC4222126E2C00BA1237 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		844AAC4422126F6C00BA1237 /* CommentInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputAccessoryView.swift; sourceTree = "<group>"; };
+		844AAC4622126F9500BA1237 /* CommentInputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputTextView.swift; sourceTree = "<group>"; };
+		844AAC4822126FCF00BA1237 /* SharePhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePhotoController.swift; sourceTree = "<group>"; };
+		844AAC4A2212700300BA1237 /* PhotoSelectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorController.swift; sourceTree = "<group>"; };
+		844AAC4C2212703900BA1237 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
+		844AAC4E2212708800BA1237 /* CommentsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsController.swift; sourceTree = "<group>"; };
+		844AAC50221270AE00BA1237 /* ToLeftAnimationPresentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToLeftAnimationPresentor.swift; sourceTree = "<group>"; };
+		844AAC52221270C200BA1237 /* ToRightAnimationPresentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToRightAnimationPresentor.swift; sourceTree = "<group>"; };
 		844B9B4721BD015F00899661 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		844C0ED621B8EC1F00810664 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		844C0ED821B954AD00810664 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
@@ -134,6 +164,10 @@
 				8453973C22090D59009EF14C /* FriendsListController.swift */,
 				8446DD3C220B2FC100A6A8CE /* UserProfileController.swift */,
 				8446DD3E220B31AB00A6A8CE /* NewsFeedController.swift */,
+				844AAC4822126FCF00BA1237 /* SharePhotoController.swift */,
+				844AAC4A2212700300BA1237 /* PhotoSelectorController.swift */,
+				844AAC4C2212703900BA1237 /* CameraController.swift */,
+				844AAC4E2212708800BA1237 /* CommentsController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -142,6 +176,11 @@
 			isa = PBXGroup;
 			children = (
 				844938B921C24CE70018F9B8 /* ChatLogInputView.swift */,
+				844AAC3A22126C8800BA1237 /* PhotoSelectorHeader.swift */,
+				844AAC322212596000BA1237 /* UserProfileHeader.swift */,
+				844AAC4622126F9500BA1237 /* CommentInputTextView.swift */,
+				844AAC4022126E0900BA1237 /* PreviewPhotoContainerView.swift */,
+				844AAC4422126F6C00BA1237 /* CommentInputAccessoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -159,6 +198,8 @@
 			isa = PBXGroup;
 			children = (
 				844A9E5C22094AA300B9B24D /* FirebaseUtilities.swift */,
+				844AAC50221270AE00BA1237 /* ToLeftAnimationPresentor.swift */,
+				844AAC52221270C200BA1237 /* ToRightAnimationPresentor.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -168,6 +209,10 @@
 			children = (
 				844C0EDB21B9605300810664 /* UserCell.swift */,
 				844B9B4721BD015F00899661 /* ChatMessageCell.swift */,
+				844AAC3822126C6300BA1237 /* PhotoSelectorCell.swift */,
+				844AAC3C22126CAA00BA1237 /* UserProfilePhotoCell.swift */,
+				844AAC3E22126CEC00BA1237 /* NewsFeedCell.swift */,
+				844AAC4222126E2C00BA1237 /* CommentCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -338,6 +383,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				844AAC4B2212700300BA1237 /* PhotoSelectorController.swift in Sources */,
 				8449B93321BA8EF300C0B6A8 /* ChatLogController.swift in Sources */,
 				844C0ED921B954AD00810664 /* NewMessageController.swift in Sources */,
 				844A9E612209AAC200B9B24D /* ViewController+theme.swift in Sources */,
@@ -348,16 +394,30 @@
 				8446DD3B220B2F8800A6A8CE /* Comment.swift in Sources */,
 				8446DD3F220B31AB00A6A8CE /* NewsFeedController.swift in Sources */,
 				844C0EDC21B9605300810664 /* UserCell.swift in Sources */,
+				844AAC3F22126CEC00BA1237 /* NewsFeedCell.swift in Sources */,
 				844938BA21C24CE70018F9B8 /* ChatLogInputView.swift in Sources */,
+				844AAC3922126C6300BA1237 /* PhotoSelectorCell.swift in Sources */,
 				8446DD3D220B2FC100A6A8CE /* UserProfileController.swift in Sources */,
+				844AAC4322126E2C00BA1237 /* CommentCell.swift in Sources */,
 				84A07B3D2205942B00EC3971 /* MainTabBarController.swift in Sources */,
+				844AAC4722126F9500BA1237 /* CommentInputTextView.swift in Sources */,
 				844C0EE221B99FFE00810664 /* LoginController+handlers.swift in Sources */,
+				844AAC51221270AE00BA1237 /* ToLeftAnimationPresentor.swift in Sources */,
+				844AAC3B22126C8800BA1237 /* PhotoSelectorHeader.swift in Sources */,
 				844B9B4821BD015F00899661 /* ChatMessageCell.swift in Sources */,
+				844AAC4122126E0900BA1237 /* PreviewPhotoContainerView.swift in Sources */,
+				844AAC4522126F6C00BA1237 /* CommentInputAccessoryView.swift in Sources */,
+				844AAC332212596000BA1237 /* UserProfileHeader.swift in Sources */,
 				844A9E5D22094AA300B9B24D /* FirebaseUtilities.swift in Sources */,
+				844AAC53221270C200BA1237 /* ToRightAnimationPresentor.swift in Sources */,
+				844AAC4922126FCF00BA1237 /* SharePhotoController.swift in Sources */,
 				8448386721BBC9E10057DE5B /* Message.swift in Sources */,
 				8453973D22090D59009EF14C /* FriendsListController.swift in Sources */,
 				844851DF21B825FB008DD6DB /* LoginController.swift in Sources */,
 				844851CC21B81DD3008DD6DB /* AppDelegate.swift in Sources */,
+				844AAC4D2212703900BA1237 /* CameraController.swift in Sources */,
+				844AAC3D22126CAA00BA1237 /* UserProfilePhotoCell.swift in Sources */,
+				844AAC4F2212708800BA1237 /* CommentsController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

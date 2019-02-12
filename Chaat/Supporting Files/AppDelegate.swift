@@ -23,7 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
 //        window?.rootViewController = UINavigationController(rootViewController: MessageController())
-          window?.rootViewController = MainTabBarController()
+          let mainTabBarController = MainTabBarController()
+          window?.rootViewController = mainTabBarController
+          mainTabBarController.selectedIndex = 1
+        
         return true
     }
 
