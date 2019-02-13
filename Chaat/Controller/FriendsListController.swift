@@ -108,14 +108,17 @@ class FriendsListController:UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let user = users[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
-        cell.userNameLabel.text = user.name
-        cell.containerView.backgroundColor = setTableCellBackgroundColor(with: indexPath.row)
-        if let profileImageUrl = user.profileImageUrl {
-            cell.profileImageView.loadImageUsingCasheWithUrlString(urlString: profileImageUrl)
+        if indexPath.row < users.count {
+            
+            let user = users[indexPath.row]
+           
+            cell.userNameLabel.text = user.name
+            cell.containerView.backgroundColor = setTableCellBackgroundColor(with: indexPath.row)
+            if let profileImageUrl = user.profileImageUrl {
+                cell.profileImageView.loadImageUsingCasheWithUrlString(urlString: profileImageUrl)
+            }
         }
-        
         return cell
     }
     
