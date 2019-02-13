@@ -48,6 +48,7 @@ class UserProfileHeader:UICollectionViewCell {
     let usernameLabel:UILabel = {
         let label = UILabel()
         label.text = "username"
+        label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 16)
         return label
     }()
@@ -99,8 +100,9 @@ class UserProfileHeader:UICollectionViewCell {
     
     let profileImageView:UIImageView = {
         let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
         iv .backgroundColor = .white
-        iv.layer.cornerRadius = 80/2
+        iv.layer.cornerRadius = 160/2
         iv.clipsToBounds = true
         return iv
     }()
@@ -223,7 +225,7 @@ class UserProfileHeader:UICollectionViewCell {
         
     }
     
-        static let updateFriendsInfoNotificationName = Notification.Name(rawValue: "updateFriendsInfo")
+    static let updateFriendsInfoNotificationName = Notification.Name(rawValue: "updateFriendsInfo")
     fileprivate func setupEditProfileStyleButton() {
         self.editProfileOrFollowButton.setTitle("Edit Profile", for: .normal)
         self.editProfileOrFollowButton.backgroundColor = UIColor.white
@@ -247,46 +249,37 @@ class UserProfileHeader:UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = UIColor(white: 0, alpha: 0.02)
         
         
         
         setUpProfileImageView()
-        setUpHeaderBottomToolBar()
         setUpUsernameLabel()
-        setupUserInfoLabel()
-        //setUpPostFollowLabel()
         setUpEditProfileButtonView()
+        setUpHeaderBottomToolBar()
+    }
+    
+
+    
+    fileprivate func setUpProfileImageView() {
+        addSubview(profileImageView)
+        profileImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        profileImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 160).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 160).isActive = true
+        
+    }
+    
+    fileprivate func setUpUsernameLabel () {
+        addSubview(usernameLabel)
+        usernameLabel.anchor(top: profileImageView.bottomAnchor, topConstant: 10, bottom: nil, bottonConstant: 0, left: leftAnchor, leftConstant: 0, right: rightAnchor, rightConstant: 0, widthConstant: 0, heightConstant: 20)
+        usernameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
     }
     
     fileprivate func setUpEditProfileButtonView() {
         addSubview(editProfileOrFollowButton)
-        editProfileOrFollowButton.anchor(top: emailLabel.bottomAnchor, topConstant: 6, bottom: nil, bottonConstant: 0, left: profileImageView.rightAnchor, leftConstant: 12, right: self.rightAnchor, rightConstant: -12, widthConstant: 0, heightConstant: 30)
-    }
-    
-    fileprivate func setupUserInfoLabel() {
-        let userInfoStackView = UIStackView(arrangedSubviews: [nameLabel,emailLabel])
-        userInfoStackView.axis = .vertical
-        addSubview(userInfoStackView)
-        userInfoStackView.anchor(top: self.topAnchor, topConstant: 6, bottom: nil, bottonConstant: 0, left: profileImageView.rightAnchor, leftConstant: 12, right: self.rightAnchor, rightConstant: -12, widthConstant: 0, heightConstant: 50)
-    }
-    
-    fileprivate func setUpPostFollowLabel() {
-        let postStackView = UIStackView(arrangedSubviews: [postLabel,followerLabel,followingLabel])
-        addSubview(postStackView)
-        postStackView.anchor(top: self.topAnchor, topConstant: 4, bottom: nil, bottonConstant: 0, left: profileImageView.rightAnchor, leftConstant: 12, right: self.rightAnchor, rightConstant: -12, widthConstant: 0, heightConstant: 50)
-        
-    }
-    fileprivate func setUpProfileImageView() {
-        addSubview(profileImageView)
-        
-        profileImageView.anchor(top: self.topAnchor, topConstant: 12, bottom: nil, bottonConstant: 0, left: self.leftAnchor, leftConstant: 12, right: nil, rightConstant: 0, widthConstant: 80, heightConstant: 80)
-    }
-    
-    
-    fileprivate func setUpUsernameLabel () {
-        addSubview(usernameLabel)
-        usernameLabel.anchor(top: profileImageView.bottomAnchor, topConstant: 4, bottom: gridButton.topAnchor, bottonConstant: 0, left: self.leftAnchor, leftConstant: 12, right: self.rightAnchor, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        editProfileOrFollowButton.anchor(top: usernameLabel.bottomAnchor, topConstant: 10, bottom: nil, bottonConstant: 0, left: nil, leftConstant: 0, right: nil, rightConstant: 0, widthConstant: 130, heightConstant: 44)
+        editProfileOrFollowButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
     }
     
     fileprivate func setUpHeaderBottomToolBar() {
@@ -305,6 +298,25 @@ class UserProfileHeader:UICollectionViewCell {
         bottomToolBarBottomSeparatorView.anchor(top: nil, topConstant: 0, bottom: headerBottomStackView.bottomAnchor, bottonConstant: 0, left: self.leftAnchor, leftConstant: 0, right: self.rightAnchor, rightConstant: 0, widthConstant: 0, heightConstant: 0.5)
         
     }
+    
+//    fileprivate func setupUserInfoLabel() {
+//        let userInfoStackView = UIStackView(arrangedSubviews: [nameLabel,emailLabel])
+//        userInfoStackView.axis = .vertical
+//        addSubview(userInfoStackView)
+//        userInfoStackView.anchor(top: self.topAnchor, topConstant: 6, bottom: nil, bottonConstant: 0, left: profileImageView.rightAnchor, leftConstant: 12, right: self.rightAnchor, rightConstant: -12, widthConstant: 0, heightConstant: 50)
+//    }
+    
+//    fileprivate func setUpPostFollowLabel() {
+//        let postStackView = UIStackView(arrangedSubviews: [postLabel,followerLabel,followingLabel])
+//        addSubview(postStackView)
+//        postStackView.anchor(top: self.topAnchor, topConstant: 4, bottom: nil, bottonConstant: 0, left: profileImageView.rightAnchor, leftConstant: 12, right: self.rightAnchor, rightConstant: -12, widthConstant: 0, heightConstant: 50)
+//
+//    }
+
+    
+
+    
+   
     
     
     required init?(coder aDecoder: NSCoder) {

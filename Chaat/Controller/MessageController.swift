@@ -114,7 +114,7 @@ class MessageController: UITableViewController {
         nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
         nameLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
         
-        self.navigationItem.titleView = titleView
+        self.navigationItem.title = user.name
 
     }
     
@@ -238,6 +238,8 @@ class MessageController: UITableViewController {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "a hh:mm"
             cell.timeLabel.text = dateFormatter.string(from: date)
+            cell.backgroundColor = UIColor.chaatColorBox[indexPath.row]
+            
         }
         return cell
     }
@@ -245,7 +247,7 @@ class MessageController: UITableViewController {
        return messages.count
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 72
+        return 96
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let message = messages[indexPath.row]

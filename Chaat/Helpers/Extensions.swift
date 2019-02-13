@@ -76,6 +76,21 @@ extension AVAsset{
 }
 
 extension UIColor {
+    
+    static let orange = UIColor.rgb(r: 242, g: 186, b: 119)
+    static let pink = UIColor.rgb(r: 253, g: 134, b: 168)
+    static let lightBlue = UIColor.rgb(r: 128, g: 238, b: 236)
+    static let lightGreen = UIColor.rgb(r: 182, g: 221, b: 121)
+    static let purpleBlue = UIColor.rgb(r: 140, g: 166, b: 231)
+    static let lightWhite = UIColor.rgb(r: 247, g: 247, b: 247)
+    
+    static let chaatColorBox:[UIColor] = [.purpleBlue,.orange,.pink,.lightBlue,.lightGreen]
+    
+    static func getRandomChaatColor()->UIColor {
+        let index = (Int(arc4random()))%(chaatColorBox.count)
+        return chaatColorBox[index]
+    }
+    
     static func rgb(r: CGFloat, g: CGFloat, b: CGFloat)->UIColor {
         return UIColor(red: r/255, green: g/255, blue: b/255, alpha: 1)
     }

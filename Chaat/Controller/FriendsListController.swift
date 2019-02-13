@@ -18,8 +18,11 @@ class FriendsListController:UITableViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         applyTheme(withTheme: .Dark)
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
+        
+        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
@@ -69,7 +72,6 @@ class FriendsListController:UITableViewController  {
             followinguserUidDic.forEach({ (key, value) in
                 FirebaseApp.fetchUserWithUserUid(uid: key, completion: { (user) in
                     self.users.append(user)
-                    print(user.name ?? "NOOO")
                    self.tableView.reloadData()
                 })
                 
@@ -97,8 +99,10 @@ class FriendsListController:UITableViewController  {
     
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 72    }
-    
+        return 96
+        
+    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
@@ -106,13 +110,17 @@ class FriendsListController:UITableViewController  {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let user = users[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
-        cell.textLabel?.text = user.name
-        cell.detailTextLabel?.text = user.email
+        cell.userNameLabel.text = user.name
+        cell.containerView.backgroundColor = setTableCellBackgroundColor(with: indexPath.row)
         if let profileImageUrl = user.profileImageUrl {
             cell.profileImageView.loadImageUsingCasheWithUrlString(urlString: profileImageUrl)
         }
         
         return cell
+    }
+    
+    fileprivate func setTableCellBackgroundColor(with index:Int)->UIColor{
+        return UIColor.chaatColorBox[index%5]
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
