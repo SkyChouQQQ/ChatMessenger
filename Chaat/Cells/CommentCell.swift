@@ -15,7 +15,7 @@ class CommentCell:UICollectionViewCell {
             guard let comment = comment else {return }
             guard let imageUrlFromPostUser = comment.user.profileImageUrl else {return }
             let commentAttributedText = NSMutableAttributedString(string: comment.user.name ?? "", attributes: [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: 14)])
-            commentAttributedText.append(NSAttributedString(string: " "+comment.text, attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14)]))
+            commentAttributedText.append(NSAttributedString(string: "  "+comment.text, attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14)]))
             self.textView.attributedText = commentAttributedText
             self.profileImageView.loadImageUsingCasheWithUrlString(urlString: imageUrlFromPostUser)
         }

@@ -84,6 +84,7 @@ extension UIColor {
     static let purpleBlue = UIColor.rgb(r: 140, g: 166, b: 231)
     static let lightWhite = UIColor.rgb(r: 247, g: 247, b: 247)
     
+    
     static let chaatColorBox:[UIColor] = [.purpleBlue,.orange,.pink,.lightBlue,.lightGreen]
     
     static func getRandomChaatColor()->UIColor {
@@ -98,8 +99,12 @@ extension UIColor {
         self.init(red: r/255, green: g/255, blue: b/255, alpha: 1)
     }
     static func ChaatBlue()->UIColor {
-        return UIColor.rgb(r: 60, g: 81, b: 108)
+        return UIColor.rgb(r: 46, g: 62, b: 80)
     }
+    static func ChatLogBGColor()->UIColor {
+        return UIColor.rgb(r: 56, g: 65, b: 99)
+    }
+    
     
     static func enableRegisterButtonColor()->UIColor {
         return UIColor.rgb(r: 80, g: 101, b: 161)

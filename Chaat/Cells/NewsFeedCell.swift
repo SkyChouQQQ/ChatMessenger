@@ -33,7 +33,7 @@ class NewsFeedCell:UICollectionViewCell {
     fileprivate func setupAttributedCaptionText() {
         guard let post = self.post else {return }
         let attributedString = NSMutableAttributedString(string: post.user.name ?? "", attributes: [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: 16)])
-        attributedString.append(NSAttributedString(string: post.caption, attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14)]))
+        attributedString.append(NSAttributedString(string: "  "+post.caption, attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14)]))
         attributedString.append(NSAttributedString(string: "\n\n", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 3)]))
         let timeAgoDisplaytext = post.creationDate.timeAgoDisplay()
         attributedString.append(NSAttributedString(string: timeAgoDisplaytext, attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.gray]))

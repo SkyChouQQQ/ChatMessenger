@@ -66,11 +66,10 @@ class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        collectionView.backgroundColor = UIColor.ChatLogBGColor()
         collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 58, right: 0)
         collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 58, right: 0)
         collectionView.alwaysBounceVertical = true
-        collectionView?.backgroundColor = .white
         
         collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
     
@@ -337,14 +336,14 @@ class ChatLogController: UICollectionViewController,UITextFieldDelegate,UICollec
         }
         
         if message.messageFromId == Auth.auth().currentUser?.uid {
-            cell.chatBubbleView.backgroundColor = ChatMessageCell.chatBubbleBlue
-            cell.messageTextView.textColor = .white
+            cell.chatBubbleView.backgroundColor = UIColor.purpleBlue
+            cell.messageTextView.textColor = UIColor.lightWhite
             cell.profileImageView.isHidden = true
             cell.chatBubbleRightAnchor?.isActive = true
             cell.chatBubbleLeftAnchor?.isActive = false
         } else {
-            cell.chatBubbleView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
-            cell.messageTextView.textColor = .black
+            cell.chatBubbleView.backgroundColor = UIColor.orange
+            cell.messageTextView.textColor = UIColor.lightWhite
             cell.profileImageView.isHidden = false
             cell.chatBubbleRightAnchor?.isActive = false
             cell.chatBubbleLeftAnchor?.isActive = true
