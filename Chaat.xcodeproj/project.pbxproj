@@ -39,6 +39,8 @@
 		844AAC4F2212708800BA1237 /* CommentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC4E2212708800BA1237 /* CommentsController.swift */; };
 		844AAC51221270AE00BA1237 /* ToLeftAnimationPresentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC50221270AE00BA1237 /* ToLeftAnimationPresentor.swift */; };
 		844AAC53221270C200BA1237 /* ToRightAnimationPresentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC52221270C200BA1237 /* ToRightAnimationPresentor.swift */; };
+		844AAC552212EBAD00BA1237 /* UserSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC542212EBAD00BA1237 /* UserSearchController.swift */; };
+		844AAC572212EEA900BA1237 /* UserSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AAC562212EEA900BA1237 /* UserSearchCell.swift */; };
 		844B9B4821BD015F00899661 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844B9B4721BD015F00899661 /* ChatMessageCell.swift */; };
 		844C0ED721B8EC1F00810664 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 844C0ED621B8EC1F00810664 /* GoogleService-Info.plist */; };
 		844C0ED921B954AD00810664 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C0ED821B954AD00810664 /* NewMessageController.swift */; };
@@ -86,6 +88,8 @@
 		844AAC4E2212708800BA1237 /* CommentsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsController.swift; sourceTree = "<group>"; };
 		844AAC50221270AE00BA1237 /* ToLeftAnimationPresentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToLeftAnimationPresentor.swift; sourceTree = "<group>"; };
 		844AAC52221270C200BA1237 /* ToRightAnimationPresentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToRightAnimationPresentor.swift; sourceTree = "<group>"; };
+		844AAC542212EBAD00BA1237 /* UserSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchController.swift; sourceTree = "<group>"; };
+		844AAC562212EEA900BA1237 /* UserSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchCell.swift; sourceTree = "<group>"; };
 		844B9B4721BD015F00899661 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		844C0ED621B8EC1F00810664 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		844C0ED821B954AD00810664 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 				844AAC4A2212700300BA1237 /* PhotoSelectorController.swift */,
 				844AAC4C2212703900BA1237 /* CameraController.swift */,
 				844AAC4E2212708800BA1237 /* CommentsController.swift */,
+				844AAC542212EBAD00BA1237 /* UserSearchController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -213,6 +218,7 @@
 				844AAC3C22126CAA00BA1237 /* UserProfilePhotoCell.swift */,
 				844AAC3E22126CEC00BA1237 /* NewsFeedCell.swift */,
 				844AAC4222126E2C00BA1237 /* CommentCell.swift */,
+				844AAC562212EEA900BA1237 /* UserSearchCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -408,6 +414,7 @@
 				844AAC4122126E0900BA1237 /* PreviewPhotoContainerView.swift in Sources */,
 				844AAC4522126F6C00BA1237 /* CommentInputAccessoryView.swift in Sources */,
 				844AAC332212596000BA1237 /* UserProfileHeader.swift in Sources */,
+				844AAC572212EEA900BA1237 /* UserSearchCell.swift in Sources */,
 				844A9E5D22094AA300B9B24D /* FirebaseUtilities.swift in Sources */,
 				844AAC53221270C200BA1237 /* ToRightAnimationPresentor.swift in Sources */,
 				844AAC4922126FCF00BA1237 /* SharePhotoController.swift in Sources */,
@@ -417,6 +424,7 @@
 				844851CC21B81DD3008DD6DB /* AppDelegate.swift in Sources */,
 				844AAC4D2212703900BA1237 /* CameraController.swift in Sources */,
 				844AAC3D22126CAA00BA1237 /* UserProfilePhotoCell.swift in Sources */,
+				844AAC552212EBAD00BA1237 /* UserSearchController.swift in Sources */,
 				844AAC4F2212708800BA1237 /* CommentsController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

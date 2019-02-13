@@ -13,7 +13,7 @@ class CameraController:UIViewController,AVCapturePhotoCaptureDelegate,UIViewCont
     
     let returnArrowButton:UIButton = {
         let bu = UIButton(type: .system)
-        bu.setImage(UIImage(named: "left_arrow_shadow")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        bu.setImage(UIImage(named: "right_arrow_shadow")?.withRenderingMode(.alwaysOriginal), for: .normal)
         bu.addTarget(self, action: #selector(handleReturnButtonTapped), for: .touchUpInside)
         return bu
     }()
@@ -40,7 +40,7 @@ class CameraController:UIViewController,AVCapturePhotoCaptureDelegate,UIViewCont
         view.addSubview(capturePhotoButton)
         capturePhotoButton.anchor(top: nil, topConstant: 0, bottom: view.bottomAnchor, bottonConstant: -24, left: nil, leftConstant: 0, right: nil, rightConstant: 0, widthConstant: 80, heightConstant: 80)
         capturePhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        returnArrowButton.anchor(top: view.topAnchor, topConstant: 12, bottom: nil, bottonConstant: 0, left: view.leftAnchor, leftConstant: 12, right: nil, rightConstant: 0, widthConstant: 50, heightConstant: 50)
+        returnArrowButton.anchor(top: view.topAnchor, topConstant: 12, bottom: nil, bottonConstant: 0, left: nil, leftConstant: 0, right: view.rightAnchor, rightConstant: -12, widthConstant: 50, heightConstant: 50)
     }
     
     let output = AVCapturePhotoOutput()
@@ -95,12 +95,12 @@ class CameraController:UIViewController,AVCapturePhotoCaptureDelegate,UIViewCont
     let toRightAnimationPresentor = ToRightAnimationPresentor()
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return toRightAnimationPresentor
+        return toLeftAnimationPresentor
     }
     
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return toLeftAnimationPresentor
+        return toRightAnimationPresentor
     }
 }
 

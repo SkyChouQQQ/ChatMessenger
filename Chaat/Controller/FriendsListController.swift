@@ -20,12 +20,28 @@ class FriendsListController:UITableViewController  {
         super.viewDidLoad()
         applyTheme(withTheme: .Dark)
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
+    
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        tableView?.refreshControl = refreshControl
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "gear"), style: .plain, target:self , action: #selector(handleLogOut))
-        
        fetchUser()
-       fetchUserFriends()
+       fetchUserFriendsUid()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWhereFriendsInfoUpdated), name:UserProfileHeader.updateFriendsInfoNotificationName, object: nil)
     }
+    
+    @objc func handleWhereFriendsInfoUpdated() {
+        handleRefresh()
+        
+    }
+    
+    @objc func handleRefresh() {
+        self.users.removeAll()
+        fetchUserFriendsUid()
+    }
+    
     @objc fileprivate func handleLogOut() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
@@ -44,28 +60,35 @@ class FriendsListController:UITableViewController  {
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:nil))
         present(alertController, animated: true, completion: nil)
     }
-    fileprivate func fetchUserFriends() {
-        Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
-            if let dictionary = snapshot.value as? [String:AnyObject] {
-                let user = User(id: snapshot.key, dic: dictionary)
-                if user.id != Auth.auth().currentUser?.uid {
+    fileprivate func fetchUserFriendsUid() {
+        guard let currentUserUid = Auth.auth().currentUser?.uid else {return }
+        let ref = Database.database().reference().child("friends").child(currentUserUid)
+        ref.observeSingleEvent(of: .value) { (snapshot) in
+            self.tableView?.refreshControl?.endRefreshing()
+            guard let followinguserUidDic = snapshot.value as? [String:Any] else {return }
+            followinguserUidDic.forEach({ (key, value) in
+                FirebaseApp.fetchUserWithUserUid(uid: key, completion: { (user) in
                     self.users.append(user)
-                }
+                    print(user.name ?? "NOOO")
+                   self.tableView.reloadData()
+                })
                 
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-        }, withCancel: nil)
-    }
+            })
+            
+        }
+       
+    
+    
+}
+    
+
     
     fileprivate func fetchUser() {
         let uid = self.userUid ?? (Auth.auth().currentUser?.uid ?? "")
         
         FirebaseApp.fetchUserWithUserUid(uid: uid) { (user) in
             self.user = user
-            self.navigationItem.title = self.user?.name
+            self.navigationItem.title = "Friends"
             self.tableView.reloadData()
             
         }
@@ -95,6 +118,13 @@ class FriendsListController:UITableViewController  {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = users[indexPath.row]
         
+        showChatVC(with: user)
     }
-    
+    fileprivate func showChatVC(with user:User) {
+        let chatLogVC = ChatLogController(collectionViewLayout:UICollectionViewFlowLayout())
+        chatLogVC.user = user
+        navigationController?.pushViewController(chatLogVC, animated: true)
+        
+
+    }
 }

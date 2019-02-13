@@ -11,6 +11,7 @@ import UIKit
 protocol NewsFeedCellDelegate {
     func didTapComment(post:Post)
     func didTapLike(for cell:NewsFeedCell)
+    func didTapSendMessage(user:User)
 }
 
 class NewsFeedCell:UICollectionViewCell {
@@ -23,7 +24,7 @@ class NewsFeedCell:UICollectionViewCell {
             photoImageView.loadImageUsingCasheWithUrlString(urlString: post.imageUrl)
             usernameLabel.text = post.user.name
             userProfileImageView.loadImageUsingCasheWithUrlString(urlString: imageUrlOfPostFromUser)
-            let likeImageName = post.isLike == true ? "like_selected" : "like_unselected"
+            let likeImageName = post.isLike == true ? "red_like" : "like_unselected"
             self.likeButton.setImage(UIImage(named: likeImageName)?.withRenderingMode(.alwaysOriginal), for: .normal)
             setupAttributedCaptionText()
         }
@@ -93,11 +94,16 @@ class NewsFeedCell:UICollectionViewCell {
         delegate?.didTapComment(post:post)
     }
     
-    let sendButton:UIButton = {
+    lazy var sendButton:UIButton = {
         let bu = UIButton(type: .system)
         bu.setImage(UIImage(named: "send2")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        bu.addTarget(self, action: #selector(handleSendMessage), for: .touchUpInside)
         return bu
     }()
+    @objc func handleSendMessage() {
+        guard let user = self.post?.user else {return }
+        delegate?.didTapSendMessage(user: user)
+    }
     
     let ribbonButton:UIButton = {
         let bu = UIButton(type: .system)

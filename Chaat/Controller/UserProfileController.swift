@@ -29,8 +29,6 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         collectionView.register(UserProfilePhotoCell.self, forCellWithReuseIdentifier: gridCellId)
         collectionView.register(NewsFeedCell.self, forCellWithReuseIdentifier: listCellId)
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "gear"), style: .plain, target: self, action: #selector(handleLogOut))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "camera"), style: .plain, target: self, action: #selector(handleShowCameraVC))
         
         applyTheme(withTheme: .Dark)
         
@@ -43,7 +41,7 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         
         FirebaseApp.fetchUserWithUserUid(uid: uid) { (user) in
             self.user = user
-            self.navigationItem.title = "Me"
+            self.navigationItem.title = "User"
             self.collectionView.reloadData()
             
             //self.fetchOrderedPosts(with:user)
@@ -52,10 +50,7 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         
     }
     
-    @objc func handleShowCameraVC() {
-        let cameraVC = CameraController()
-        present(cameraVC, animated: true, completion: nil)
-    }
+
     
     var isPagingfinished = false
     fileprivate func paginatePosts() {
@@ -103,24 +98,7 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
     }
     
     
-    @objc func handleLogOut(){
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
-            print("Log out")
-            do{
-                try Auth.auth().signOut()
-            }catch let logOutError {
-                print(logOutError)
-            }
-            
-            print("user is logOut")
-            let loginController = LoginController()
-            self.present(loginController, animated: true, completion: nil)
-            
-        }))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:nil))
-        present(alertController, animated: true, completion: nil)
-    }
+
     
     
     

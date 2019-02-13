@@ -47,6 +47,12 @@ class NewsFeedController:UICollectionViewController,UICollectionViewDelegateFlow
     fileprivate func setupNavigationBar() {
         navigationItem.title =  "News Feed "
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "plus_unselected"), style: .plain, target: self, action: #selector(handleShowPhotoSelectorVC))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "camera"), style: .plain, target: self, action: #selector(handleShowCameraVC))
+    }
+    
+    @objc func handleShowCameraVC() {
+        let cameraVC = CameraController()
+        present(cameraVC, animated: true, completion: nil)
     }
     
     @objc func handleShowPhotoSelectorVC() {
@@ -72,9 +78,13 @@ class NewsFeedController:UICollectionViewController,UICollectionViewDelegateFlow
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! NewsFeedCell
         cell.delegate = self
+        
         if indexPath.item < posts.count {
-            cell.post = posts[indexPath.item]
+            let post = posts[indexPath.item]
+            cell.post = post
+            cell.sendButton.isEnabled = isPostFromMe(post: post) ? false : true
         }
+    
         return cell
     }
     func didTapComment(post:Post) {
@@ -100,6 +110,11 @@ class NewsFeedController:UICollectionViewController,UICollectionViewDelegateFlow
         
     }
     
+    func didTapSendMessage(user: User) {
+        let chatLogVC = ChatLogController(collectionViewLayout:UICollectionViewFlowLayout())
+        chatLogVC.user = user
+        navigationController?.pushViewController(chatLogVC, animated: true)
+    }
     fileprivate func fetchAllPost() {
         fetchPosts()
         fetchFollowingUserUid()
@@ -114,7 +129,7 @@ class NewsFeedController:UICollectionViewController,UICollectionViewDelegateFlow
     
     fileprivate func fetchFollowingUserUid() {
         guard let currentUserUid = Auth.auth().currentUser?.uid else {return }
-        let ref = Database.database().reference().child("following").child(currentUserUid)
+        let ref = Database.database().reference().child("friends").child(currentUserUid)
         ref.observeSingleEvent(of: .value) { (snapshot) in
             guard let followinguserUidDic = snapshot.value as? [String:Any] else {return }
             followinguserUidDic.forEach({ (key, value) in
@@ -123,6 +138,10 @@ class NewsFeedController:UICollectionViewController,UICollectionViewDelegateFlow
                 })
             })
         }
+    }
+    private func isPostFromMe(post:Post)->Bool {
+        guard let currentUserUid = Auth.auth().currentUser?.uid else {return false}
+        return post.user.id! == currentUserUid
     }
     fileprivate func fetchPostsWithUser(_ user: User) {
         guard let userUid = user.id else {return }
@@ -142,10 +161,13 @@ class NewsFeedController:UICollectionViewController,UICollectionViewDelegateFlow
                     } else {
                         post.isLike = false
                     }
+                    
                     self.posts.append(post)
                     self.posts.sort(by: { (p1, p2) -> Bool in
                         return p1.creationDate.compare(p2.creationDate) == .orderedDescending
                     })
+
+                    
                     self.collectionView?.reloadData()
                 }, withCancel: { (error) in
                     print("Fail to fetch likes info reom db with error ,", error)

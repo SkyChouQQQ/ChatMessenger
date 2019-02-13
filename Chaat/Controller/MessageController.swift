@@ -140,7 +140,7 @@ class MessageController: UITableViewController {
         
         let newMessageIconImage = #imageLiteral(resourceName: "new_message_icon")
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "LogOut", style: .plain, target: self, action: #selector(handleLogOut))
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: newMessageIconImage, style: .plain, target: self, action: #selector(handleNewMessage))
         
         tableView.allowsMultipleSelectionDuringEditing = true

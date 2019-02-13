@@ -35,7 +35,7 @@ class UserProfileHeader:UICollectionViewCell {
         guard let currentUserUid = Auth.auth().currentUser?.uid else {return }
         guard let uid = user?.id else {return }
         
-        Database.database().reference().child("following").child(currentUserUid).child(uid).observeSingleEvent(of: .value) { (snapshot) in
+        Database.database().reference().child("friends").child(currentUserUid).child(uid).observeSingleEvent(of: .value) { (snapshot) in
             if let isFollowing = snapshot.value as? Int, isFollowing == 1 {
                 self.setupUnfollowStyleButton()
             }else {
@@ -178,30 +178,52 @@ class UserProfileHeader:UICollectionViewCell {
         guard let userUid = user?.id else {return }
         
         guard let titleLabel = self.editProfileOrFollowButton.titleLabel?.text else {return }
-        if titleLabel == "Unfollow" {
-            let ref = Database.database().reference().child("following").child(currentUserUid).child(userUid)
+        if titleLabel == "Delete Friend" {
+            let ref = Database.database().reference().child("friends").child(currentUserUid).child(userUid)
+            let conjugateRef = Database.database().reference().child("friends").child(userUid).child(currentUserUid)
             ref.removeValue { (error, ref) in
                 if let error = error {
                     print("Fail to remove unfollowed user with error, ",error as Any)
                     return
                 }
                 print("Sucessfully remove following user at DB")
+                NotificationCenter.default.post(name: UserProfileHeader.updateFriendsInfoNotificationName, object: nil)
                 self.setupFollowStyleButton()
             }
-        } else if titleLabel == "Follow" {
-            let ref = Database.database().reference().child("following").child(currentUserUid)
+            conjugateRef.removeValue { (error, ref) in
+                if let error = error {
+                    print("Fail to remove unfollowed user with error, ",error as Any)
+                    return
+                }
+                print("Sucessfully remove following user at DB")
+                
+                self.setupFollowStyleButton()
+            }
+        } else if titleLabel == "Add Friend" {
+            let ref = Database.database().reference().child("friends").child(currentUserUid)
+            let conjugateRef = Database.database().reference().child("friends").child(userUid)
             let values:[String:Any] = [userUid:1]
+            let conjugateValues:[String:Any] = [currentUserUid:1]
             ref.updateChildValues(values) { (error, ref) in
+                if let error = error {
+                    print("Update friends at DB failed with error", error as Any)
+                }
+                NotificationCenter.default.post(name: UserProfileHeader.updateFriendsInfoNotificationName, object: nil)
+                self.setupUnfollowStyleButton()
+            }
+            conjugateRef.updateChildValues(conjugateValues) { (error, ref) in
                 if let error = error {
                     print("Update following at DB failed with error", error as Any)
                 }
-                print("Sucessfully update following user at DB")
+                
                 self.setupUnfollowStyleButton()
             }
         }
         
         
     }
+    
+        static let updateFriendsInfoNotificationName = Notification.Name(rawValue: "updateFriendsInfo")
     fileprivate func setupEditProfileStyleButton() {
         self.editProfileOrFollowButton.setTitle("Edit Profile", for: .normal)
         self.editProfileOrFollowButton.backgroundColor = UIColor.white
@@ -210,14 +232,14 @@ class UserProfileHeader:UICollectionViewCell {
     }
     
     fileprivate func setupFollowStyleButton() {
-        self.editProfileOrFollowButton.setTitle("Follow", for: .normal)
+        self.editProfileOrFollowButton.setTitle("Add Friend", for: .normal)
         self.editProfileOrFollowButton.setTitleColor(.white, for: .normal)
         self.editProfileOrFollowButton.backgroundColor = UIColor.ChaatBlue()
         self.editProfileOrFollowButton.layer.borderColor = UIColor(white: 0, alpha: 0.2).cgColor
     }
     fileprivate func setupUnfollowStyleButton() {
         
-        self.editProfileOrFollowButton.setTitle("Unfollow", for: .normal)
+        self.editProfileOrFollowButton.setTitle("Delete Friend", for: .normal)
         self.editProfileOrFollowButton.setTitleColor(UIColor.black, for: .normal)
         self.editProfileOrFollowButton.backgroundColor = .white
         self.editProfileOrFollowButton.layer.borderColor = UIColor.lightGray.cgColor

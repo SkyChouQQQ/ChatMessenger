@@ -31,6 +31,10 @@ extension UIViewController {
     }
     
     
+    private func setBackImageAtnaviBar() {
+        
+    }
+    
     private func setUpDarkTheme() {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true

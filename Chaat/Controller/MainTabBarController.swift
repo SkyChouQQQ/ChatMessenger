@@ -17,6 +17,8 @@ class MainTabBarController:UITabBarController,UITabBarControllerDelegate {
             
             let messagesNavVC = templateNavVC(unselectedImage: UIImage(named: "chat_unselected")!, selectedImage: UIImage(named: "chat_selected")!,rootVC:MessageController())
             
+            let searchNavVC = templateNavVC(unselectedImage: UIImage(named: "search_unselected")!, selectedImage: UIImage(named: "search_selected")!,rootVC: UserSearchController(collectionViewLayout:UICollectionViewFlowLayout()))
+            
             let newsFeedLayout = UICollectionViewFlowLayout()
             let newsFeedVC = NewsFeedController(collectionViewLayout:newsFeedLayout)
             let newsFeedNvVC = templateNavVC(unselectedImage: UIImage(named: "home_unselected")!, selectedImage: UIImage(named: "home_selected")!,rootVC:newsFeedVC)
@@ -32,7 +34,7 @@ class MainTabBarController:UITabBarController,UITabBarControllerDelegate {
             
             tabBar.tintColor = .black
             
-        viewControllers = [friendsNavVC,messagesNavVC,newsFeedNvVC,userProfileNavVC]
+        viewControllers = [friendsNavVC,messagesNavVC,searchNavVC,newsFeedNvVC,userProfileNavVC]
         
         //modify tab bar item insets
         guard let tabBarItems = tabBar.items else {return }
@@ -75,6 +77,7 @@ class MainTabBarController:UITabBarController,UITabBarControllerDelegate {
     
     //MARK:- tab bar VC delegate method
     
+
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
 
         return true
