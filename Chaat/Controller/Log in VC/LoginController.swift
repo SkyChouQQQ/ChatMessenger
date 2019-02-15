@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class LoginController: UIViewController {
+class LoginController: UIViewController,UITextFieldDelegate {
     
         
     lazy var inputProfileImageView:UIImageView = {
@@ -107,6 +107,10 @@ class LoginController: UIViewController {
         view.addSubview(inputContainerView)
         view.addSubview(loginRegisterButton)
 
+        
+        nameInputTextField.delegate = self
+        emailInputTextField.delegate = self
+        passWordInputTextField.delegate = self
         
         setUpInputContainerView()
         setUpLoginRegisterButtonView()
@@ -230,7 +234,61 @@ class LoginController: UIViewController {
         }
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+        subscribeToKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+        unsubscribeFromKeyboardNotifications()
+    }
+    
+    // MARK: Observe and respond to keyboard notifications
+    func subscribeToKeyboardNotifications(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func unsubscribeFromKeyboardNotifications(){
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification:Notification){
+        if (self.view.frame.origin.y >= 0) {
+            
+            self.view.frame.origin.y -= self.getKeyboardHeight(notification: notification)
+            
+        }
+    }
+    
+    @objc func keyboardWillHide(notification:Notification){
+        if (self.view.frame.origin.y < 0) {
+            
+            self.view.frame.origin.y += self.getKeyboardHeight(notification:notification)
+        }
+        
+    }
+    
+    func getKeyboardHeight(notification:Notification)->CGFloat{
+        let userInfo = notification.userInfo!
+        let keyboardFrameEndRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+        return keyboardFrameEndRect.size.height
+        
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.placeholder = ""
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     
 }
     

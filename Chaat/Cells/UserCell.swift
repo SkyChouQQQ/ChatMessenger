@@ -19,7 +19,7 @@ class UserCell: UITableViewCell {
     let containerView:UIView = {
         let cv = UIView()
         cv.layer.masksToBounds = true
-        cv.layer.cornerRadius = 6
+        cv.layer.cornerRadius = 0
         return cv
     }()
     
