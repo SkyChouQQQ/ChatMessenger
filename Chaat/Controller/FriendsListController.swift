@@ -61,7 +61,13 @@ class FriendsListController:UITableViewController  {
             
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:nil))
-        present(alertController, animated: true, completion: nil)
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = self.view
+            popoverPresentationController.sourceRect = self.view.bounds
+            popoverPresentationController.permittedArrowDirections = []
+            present(alertController, animated: true, completion: nil)
+        }
+        
     }
     fileprivate func fetchUserFriendsUid() {
         guard let currentUserUid = Auth.auth().currentUser?.uid else {return }
